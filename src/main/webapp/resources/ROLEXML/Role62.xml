@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root_menu>
+    <menu kMenuName="ಜಿಪಿ ಪ್ರೊಫೈಲ್" menuClass="main-menu" menuFunction="loadGpProfile()" menuIcon="fa fa-user" menuId="201" menuName="General Profile" moduleId="3" visibility="Y"/>
+    <menu kMenuName=" ಜಿಪಿ ಅನುಮೋದನೆ ಪಟ್ಟಿ ಅಧ್ಯಕ್ಷರು" menuClass="main-menu" menuFunction="loadGPApprovalListPresident()" menuIcon="fa fa-user" menuId="222" menuName="GP Approval List President" moduleId="3" visibility="Y"/>
+    <menu kMenuName="ಜಿಪಿ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್" menuClass="main-menu" menuFunction="loadGpDashboard()" menuIcon="fa fa-user" menuId="182" menuName="GP Dashboard" moduleId="3" visibility="Y"/>
+    <menu kMenuName="ಜಿಪಿ ಅನುಮೋದನೆ ಪಟ್ಟಿ ಪಿಡಿಒ" menuClass="main-menu" menuFunction="loadGPApprovalListPDO()" menuIcon="fa fa-user" menuId="221" menuName="GP Approval List PDO" moduleId="3" visibility="Y"/>
+    <menu kMenuName="ಜಿಪಿ ಪ್ರೊಫೈಲ್ ವರದಿ" menuClass="main-menu" menuFunction="loadGpProfileReport()" menuIcon="fa fa-search" menuId="206" menuName="Gp Profile Report" moduleId="3" visibility="Y"/>
+    <menu kMenuName="ಜಿಪಿ ಸಿಬ್ಬಂದಿ" menuClass="main-menu" menuFunction="loadGPStaffList()" menuIcon="fa fa-user" menuId="202" menuName="GP Staff" moduleId="3" visibility="Y"/>
+    <menu kMenuName="ಜಿಪಿ ಜನಸಂಖ್ಯಾ ಮಾಹಿತಿ" menuClass="main-menu" menuFunction="loadGPData()" menuIcon="fa fa-user" menuId="203" menuName="GP Demographic Information" moduleId="3" visibility="Y"/>
+    <menu kMenuName="ಜಿಪಿ ಜನಸಂಖ್ಯಾಶಾಸ್ತ್ರ" menuClass="main-menu" menuFunction="loadGpDemographic()" menuId="83" menuName="GP Demographic" moduleId="3" visibility="Y"/>
+    <menu kMenuName="ಕಾರ್ಯದರ್ಶಿ ಪರದೆ" menuClass="main-menu" menuFunction="loadGPSDashboard()" menuId="281" menuName="GP Secretary Screen" moduleId="122" visibility="Y"/>
+    <menu kMenuName="ಪ್ರೊಫೈಲ್" menuClass="link-menu" menuFunction="-" menuIcon="fa fa-search" menuId="312" menuName="GP Profile" moduleId="3" visibility="Y">
+        <sub_menu kMenuName="ಜಿಪಿ ಪ್ರೊಫೈಲ್" menuClass="sub-menu" menuFunction="loadGpProfile()" menuIcon="fa fa-user" menuId="201" menuName="General Profile" visibility="Y"/>
+        <sub_menu kMenuName="ಜಿಪಿ ಸಿಬ್ಬಂದಿ" menuClass="sub-menu" menuFunction="loadGPStaffList()" menuIcon="fa fa-user" menuId="202" menuName="GP Staff" visibility="Y"/>
+        <sub_menu kMenuName="ಜಿಪಿ ಪ್ರೊಫೈಲ್ ವರದಿ" menuClass="sub-menu" menuFunction="loadGpProfileReport()" menuIcon="fa fa-search" menuId="206" menuName="Gp Profile Report" visibility="Y"/>
+    </menu>
+    <menu kMenuName="ಜಿಪಿ ಸೆಂಟರ್ ಪ್ರಕಾರ" menuClass="main-menu" menuFunction="loadMstGpCenterType()" menuId="261" menuName="GP Center TYpe" moduleId="2" visibility="Y"/>
+</root_menu>

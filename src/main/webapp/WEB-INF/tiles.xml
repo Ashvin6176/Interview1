@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="base.definition"	template="/WEB-INF/common/afterLogin/blank_layout.jsp">
+		<put-attribute name="title"  value="" />
+		<put-attribute name="header" value="/WEB-INF/common/afterLogin/AfterLoginHeader.jsp" />
+		<put-attribute name="menu"   value="/WEB-INF/common/afterLogin/afterLoginMenu.jsp" />
+		<put-attribute name="body"   value="" />
+		<put-attribute name="footer" value="/WEB-INF/common/afterLogin/afterLoginFooter.jsp" />
+	</definition>
+	<definition name="blank1.definition" template="/WEB-INF/common/beforeLogin/blank_layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="body" value="" />
+	</definition>
+	<definition name="error.definition" template="/WEB-INF/common/error_layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="body" value="" />
+	</definition>
+	<definition name="customErrorPage404" extends="blank1.definition">
+		<put-attribute name="title" value="Login Page" />
+		<put-attribute name="body" value="/WEB-INF/errorPages/customErrorPage404.jsp" />
+	</definition>
+	<definition name="customErrorPage500" extends="blank1.definition">
+		<put-attribute name="title" value="Login Page" />
+		<put-attribute name="body" value="/WEB-INF/errorPages/customErrorPage500.jsp" />
+	</definition>
+	<definition name="loadloginPage" extends="blank1.definition">
+		<put-attribute name="title" value="Login Page" />
+		<put-attribute name="body" value="/WEB-INF/loginScreen/loadLoginPage.jsp" />
+	</definition>
+	<definition name="loadIndex" extends="base.definition">
+		<put-attribute name="title" value="Index" />
+		<put-attribute name="body" value="/WEB-INF/loginScreen/index.jsp" />
+	</definition>
+	<definition name="loadloginPage" extends="blank1.definition">
+		<put-attribute name="title" value="Login Page" />
+		<put-attribute name="body" value="/WEB-INF/loginScreen/loadLoginPage.jsp" />
+	</definition>
+	<definition name="loadDashboard" extends="base.definition">
+		<put-attribute name="title" value="Dashboard" />
+		<put-attribute name="body" value="/WEB-INF/Dashboard/loadDashboard.jsp" />
+	</definition>
+
+<!-- Start :: Bhavik Bhimani -->
+	<definition name="loadforgotPassword" extends="blank1.definition">
+		<put-attribute name="title" value="Forgot Password Page" />
+		<put-attribute name="body" value="/WEB-INF/loginScreen/loadforgotPassword.jsp"/>
+	</definition>
+
+	<definition name="loadManagePatientPage" extends="base.definition">
+		<put-attribute name="title" value="Manage Patient" />
+		<put-attribute name="body" value="/WEB-INF/pages/ManagePatientPage.jsp"/>
+	</definition>
+	
+    <definition name="loadManageCareGiverPage" extends="base.definition">
+		<put-attribute name="title" value="Manage Care Giver" />
+		<put-attribute name="body" value="/WEB-INF/pages/ManageCareGiverPage.jsp"/>
+	</definition>
+
+    <definition name="loadManageInsuranceCompPage" extends="base.definition">
+		<put-attribute name="title" value="Manage Insurance Company" />
+		<put-attribute name="body" value="/WEB-INF/pages/ManageInsuranceCompPage.jsp"/>
+	</definition>
+	
+    <definition name="loadUploadWeeklyBaseDataPage" extends="base.definition">
+		<put-attribute name="title" value="Upload Weekly Base Data" />
+		<put-attribute name="body" value="/WEB-INF/pages/UploadWeeklyBaseDataPage.jsp"/>
+	</definition>
+	
+	<definition name="loadUploadBillDataPage" extends="base.definition">
+		<put-attribute name="title" value="Generate Bill Data" />
+		<put-attribute name="body" value="/WEB-INF/pages/GenerateBillingDataPage.jsp"/>
+	</definition>
+	
+	<definition name="loadUploadPayrollDataPage" extends="base.definition">
+		<put-attribute name="title" value="Generate Salary Data" />
+		<put-attribute name="body" value="/WEB-INF/pages/GenerateSalaryDataPage.jsp"/>
+	</definition>
+	
+	<definition name="loadUploadBilledReportDataPage" extends="base.definition">
+		<put-attribute name="title" value="Upload Billed Report Data" />
+		<put-attribute name="body" value="/WEB-INF/pages/UploadBilledReportDataPage.jsp"/>
+	</definition>
+
+	<definition name="loadUploadReconcilationDataPage" extends="base.definition">
+		<put-attribute name="title" value="Upload Reconciliation Data" />
+		<put-attribute name="body" value="/WEB-INF/pages/UploadReconcilationDataPage.jsp"/>
+	</definition>
+
+	<definition name="loadReconcilationDataPage" extends="base.definition">
+		<put-attribute name="title" value="Reconcile Data" />
+		<put-attribute name="body" value="/WEB-INF/pages/ReconcilationDataPage.jsp"/>
+	</definition>
+
+	<definition name="loadPatientCareGiverMappingPage" extends="base.definition">
+		<put-attribute name="title" value="Patient CareGiver Mapping" />
+		<put-attribute name="body" value="/WEB-INF/pages/PatientCareGiverMappingPage.jsp"/>
+	</definition>
+
+	<definition name="loadPatientApplicationDetailsPage" extends="base.definition">
+		<put-attribute name="title" value="Patient Application Details" />
+		<put-attribute name="body" value="/WEB-INF/pages/PatientApplicationDetailsPage.jsp"/>
+	</definition>
+
+	<definition name="loadComparisonGenerationPage" extends="base.definition">
+		<put-attribute name="title" value="Comparison Generation" />
+		<put-attribute name="body" value="/WEB-INF/pages/ComparisonGenerationPage.jsp"/>
+	</definition>
+	
+	<definition name="loadComparisonReportPage" extends="base.definition">
+		<put-attribute name="title" value="Comparison Report" />
+		<put-attribute name="body" value="/WEB-INF/pages/ComparisonReportPage.jsp"/>
+	</definition>
+	
+	<definition name="loadMonthlyAuthExpiryReportPage" extends="base.definition">
+		<put-attribute name="title" value="Monthly Authorization Expiry Report" />
+		<put-attribute name="body" value="/WEB-INF/pages/MonthlyAuthExpiryReportPage.jsp"/>
+	</definition>
+
+	<definition name="loadPatientwiseDaywiseBillingReport" extends="base.definition">
+		<put-attribute name="title" value="Patientwise Daywise Billing Report" />
+		<put-attribute name="body" value="/WEB-INF/pages/reports/PatientwiseDaywiseBillingReport.jsp"/>
+	</definition>
+<!-- End :: Bhavik Bhimani -->
+
+</tiles-definitions>
