@@ -634,7 +634,7 @@ $(document).ready(function(){
 	setLocalStorageDataLoadTime();
 	
 	
-	
+	$("#headerUserRoleId").empty().append('${sessionScope.user_name}');
 // 	setUserHeaderData();
 var uData =  JSON.parse(localStorage.getItem("userData"));
 if(uData != null)

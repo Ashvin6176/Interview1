@@ -42,7 +42,7 @@ public class LoginController {
     LoginService loginService;
     
 	@RequestMapping(value = "loginPage")
-	public ModelAndView loadLoginPage(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView loadLoginPage(HttpServletRequest request, HttpServletResponse response,RedirectAttributes redirectAttribute) {
 		return new ModelAndView("loadloginPage");
 	}
 	
@@ -51,7 +51,7 @@ public class LoginController {
 		return new ModelAndView("loadforgotPassword");
 	}
 	@PostMapping(value="/CheckUserLogin")
-	public String checkUserLogin( @Valid @ModelAttribute LoginBo loginBo,BindingResult b, HttpServletRequest request,HttpServletResponse response,RedirectAttributes redirectAttribute) throws Exception{
+	public ModelAndView checkUserLogin( @Valid @ModelAttribute LoginBo loginBo,BindingResult b, HttpServletRequest request,HttpServletResponse response,RedirectAttributes redirectAttribute) throws Exception{
 		ResponseBo resData=new ResponseBo();
 		String secret = Constants.KSBCL_LOGIN_SECRET_KEY_ID;
 		
@@ -85,7 +85,7 @@ public class LoginController {
 			redirectAttribute.addFlashAttribute(Constants.MSG_PRIORITY, Constants.MSG_PRIORITY_SUCCESS);
 			 redirectAttribute.addFlashAttribute(Constants.MSG_VALIDATION_ERRORS,errorMap);
 			 redirectAttribute.addFlashAttribute("attempCount", resData.getValueOne());
-			 return "redirect:login";
+			 return loadLoginPage(request, response, redirectAttribute);
 		}
 		loginBo.setCrtIp(CommonUtility.getIp(request));
 		resData=loginService.checkUserLogin(loginBo);
@@ -93,33 +93,15 @@ public class LoginController {
 			HttpSession session=request.getSession(true);
 			 loginBo=(LoginBo) resData.getService_data();
 			session.setAttribute("user_id",  String.valueOf(loginBo.getUser_id()));
-			
-			return "redirect:loadDashboard";
+			session.setAttribute("user_name",  String.valueOf(loginBo.getUser_name()));
+			return new ModelAndView("loadDashboard");
 		}else {
-			redirectAttribute.addFlashAttribute(Constants.MSG_NAME, resData.getService_message());
-			redirectAttribute.addFlashAttribute(Constants.MSG_PRIORITY, resData.getService_status());
-			redirectAttribute.addFlashAttribute(Constants.MSG_TITLE, "Login");
-			 return "redirect:login";
+			request.setAttribute("responseBo", resData);
+			return loadLoginPage(request, response, redirectAttribute);
 		}
 		
 	}	
-	@RequestMapping(value = "loadDashboard")
-	public ModelAndView loadDashboard(HttpServletRequest req,HttpServletResponse res)
-	{
-		HttpSession session=req.getSession(false);
-		String user_id=(String) session.getAttribute("user_id");
-		
-		if(!StringUtils.isBlank(user_id))
-		{
-			req.setAttribute("user_id", user_id);
-			return new ModelAndView("loadDashboard");
-		}
-		else
-		{
-			return new ModelAndView("loginPage");
-		}
-		
-	}
+	
 	@RequestMapping(value = "/logout")
 	public String loadLogout(HttpServletRequest request,HttpServletResponse response,RedirectAttributes redirectAttribute ) throws IOException {
 		String text_type=request.getParameter("text_type");
@@ -129,7 +111,7 @@ public class LoginController {
 			HttpSession session=request.getSession(false);
 			if(session.getAttribute("user_id") !=null && session.getAttribute("user_id") != "")
 			{
-			session.invalidate();
+				session.invalidate();
 			}
 		}
 		if(text_type != null && !text_type.equals("")) {

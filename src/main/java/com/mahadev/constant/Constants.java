@@ -227,7 +227,7 @@ public class Constants
 	public static final String FUEL_REIMBURSEMENT_PAYMENT_TYPE="14";
 	public static final String AUTO_CHARGE_REIMBURSEMENT_PAYMENT_TYPE="15";
 	public static final int NON_UTILIZATION_LEAVE_APPL_ID =54;
-	public static final String PROJECT_NAME ="Karnataka State Beverages Corporation Limited.";
+	public static final String PROJECT_NAME ="Mahadev";
 	// FAIZAL :: END
 
 	// START :: SAJJAD

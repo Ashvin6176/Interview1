@@ -302,7 +302,7 @@ $(document).ready(function(){
     };
     
     
-    var errorMsg='${responseBo.return_message}';
+    var errorMsg='${responseBo.service_message}';
     if(errorMsg !=null && errorMsg !='' && errorMsg !='undefined'){
 			toastr.error(errorMsg,"ERROR",{
 				closeButton:true,
