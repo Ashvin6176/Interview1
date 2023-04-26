@@ -20,7 +20,7 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap-select.css"/>"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/select2.min.css"/>"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap-datepicker.min.css"/>"></link>
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/toaster/jquery.toast.css"/>"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/toaster/toastr.css"/>"></link>
 
 <!-- START :: JS -->
 <script src="<c:url value="/resources/js/jquery-3.4.1.min.js"/>"></script>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ page import="com.ict.mahadev.constant.Constants"%>
+<%@ page import="com.mahadev.constant.Constants"%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css">
 
@@ -876,7 +876,7 @@ $(document).ready(() => {
 				<div class="modal-content">
 				  <div class="modal-header ">
 					<p class="modal-title" id="uploadDocModalLabelId"><fmt:message bundle="${hrmsLabels}" key="ADD_NEW_DOCUMENTS"/></p>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">ï¿½</button>
 				  </div>
 				  <div class="modal-body">
 				  			<div>

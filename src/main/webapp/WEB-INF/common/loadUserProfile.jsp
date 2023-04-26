@@ -1,4 +1,4 @@
-<%@page import="com.ict.utils.CommonUtility"%>
+<%@page import="com.utils.CommonUtility"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

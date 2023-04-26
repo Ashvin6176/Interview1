@@ -293,6 +293,34 @@ span.button__text {
 </div>
 </body>
 <script type="text/javascript">
+$(document).ready(function(){
+	var text_type='${text_type}';
+	 
+	window.history.pushState(null, "", window.location.href);        
+    window.onpopstate = function() {
+        window.history.pushState(null, "", window.location.href);
+    };
+    
+    
+    var errorMsg='${responseBo.return_message}';
+    if(errorMsg !=null && errorMsg !='' && errorMsg !='undefined'){
+			toastr.error(errorMsg,"ERROR",{
+				closeButton:true,
+				autohide:false
+				}); 
+    
+    }
+    	
+    	var sessionOutMsg='${sessionOutMsg}';
+    	if(sessionOutMsg !=null && sessionOutMsg !='' && sessionOutMsg !='undefined')
+    		{
+    		 toastr.error(sessionOutMsg,"ERROR",{
+    				closeButton:true,
+    				autohide:false
+       			});
+    		}
+	    
+});
 function crypt (plainText) {
 	  // (B1) GET PASSWORD + ENCRYPT
 	  var password = document.getElementById("password");
@@ -323,38 +351,10 @@ function checkUserLogin() {
 	var flag = true;
 	var flag = formValidate("signInformId");
 	if (flag) {
-				crypt();
-// 				document.signInform.action="${pageContext.request.contextPath}/login/CheckUserLogin";
-// 				document.signInform.target="_self";
-// 				document.signInform.submit();
-				var sendData={"user_name":$('#login_name').val(),"password":$('#password').val()};
-				$.ajax({
-					url:"<%=request.getContextPath()%>/login/CheckUserLogin",
-					type:"POST",
-					// contentType:"application/json",
-					// data:JSON.stringify(sendData),.serialize()3
-					data:$("#signInformId").serialize(),
-					success:function(resData){
-					
-						if(resData != null && resData.service_status != null && resData.service_status != ""  && resData.service_status == "SUCCESS"){
-							
-							if(resData.service_data != null){
-								var userId=resData.service_data.user_id;
-								//setUserSessionDataFromUserId(userId);					
-							}else{
-								openToastMessage('Login',resData.service_message,'error');
-							} 
-												
-						}else{
-							//closeModel();
-							openToastMessage('Login',resData.service_message,'error');
-							
-						}
-			        		
-					},
-					error:function(){
-					}		
-				});
+		crypt();
+		document.signInform.action="${pageContext.request.contextPath}/login/CheckUserLogin";
+		document.signInform.target="_self";
+		document.signInform.submit();
 	}
 }
 
