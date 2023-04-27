@@ -24,63 +24,23 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.web.context.ServletContextAware;
 
-import com.mahadev.entityModel.MstLabelBo;
+import com.mahadev.common.repo.AllRepo;
+import com.mahadev.common.entityModel.MstLabelBo;
 import com.utils.CommonUtility;
 
 /**
  * @author Baghel Mit
- * For Open menu by its screen id and Load Label File English and Kannada Dynamically For Each Label Add
+ * For Open menu by its screen id and Load Label File English and Gujarati Dynamically For Each Label Add
  */
 @Configuration
 public class ConfigLoadMapDynamically implements ServletContextAware
 {
-//	@Autowired
-//	private AllRepository allRepo;
-	
-	@Bean
-	public Map<String,String> loadApplMenu(HttpServletRequest req,HttpServletResponse res) throws IOException
-	{
-		    Map<String,String> returnMap=new HashMap<String, String>();
-			returnMap.put("11","loadPropertyTax");
-			returnMap.put("21","loadBuildingNote");
-			returnMap.put("22","loadApplNewWaterConnNote");
-			returnMap.put("23","loadBuildDisWaterConnNote");
-			returnMap.put("241","loadNewForm9");
-			returnMap.put("242","loadMutation");
-			returnMap.put("243","loadNewFrom9AppStatus");
-			returnMap.put("25","loadForm9");
-			returnMap.put("26","loadOccuoancyCertificate");
-			returnMap.put("27","loadForm11");
-			returnMap.put("31","loadBussLicenseNote");
-			returnMap.put("32","loadTradeFactNote"); 
-			returnMap.put("33","loadAdvertisingLicense");
-			returnMap.put("41","loadMaintDrinkWaterNote");
-			returnMap.put("42","loadMainStreetLightsNote");
-			returnMap.put("43","loadMaintVillegeSantiNote");
-			returnMap.put("51","loadOtherIssunceOfRecNote");
-			returnMap.put("52","loadOtherIssuanceOfNOCNote");
-			returnMap.put("53","loadOtherRoadCutPerNote");
-			returnMap.put("54","loadEntmtLicense");
-			returnMap.put("61","loadCitizenReg");
-			returnMap.put("71","loadNotificationTemplate");
-			returnMap.put("72","loadSMSEventMst");
-			return returnMap;
-	}
-	
-
-	//kuldipsinh
-	/*
-	 * @Bean public CommonsMultipartResolver commonsMultipartResolver() { final
-	 * CommonsMultipartResolver commonsMultipartResolver = new
-	 * CommonsMultipartResolver(); commonsMultipartResolver.setMaxUploadSize(-1);
-	 * return commonsMultipartResolver; }
-	 */
-
-	
-	public boolean generateLabelPropertyFile(String labelPath) throws Exception {
+	@Autowired
+	private AllRepo allRepo;
+	public boolean generateLabelPropertyFile() throws Exception {
 		try {
 
-			Resource resource = new ClassPathResource("hrms_en.properties");
+			Resource resource = new ClassPathResource("MAHADEV_EN.properties");
 			File file = resource.getFile();
 			if (file.exists()) {
 				file.delete();
@@ -88,7 +48,7 @@ public class ConfigLoadMapDynamically implements ServletContextAware
 			} else {
 				file.createNewFile();
 			}
-			Resource resource1 = new ClassPathResource("hrms_kn.properties");
+			Resource resource1 = new ClassPathResource("MAHADEV_GUJ.properties");
 			File file1 = resource1.getFile();
 			if (file1.exists()) {
 				file1.delete();
@@ -96,35 +56,22 @@ public class ConfigLoadMapDynamically implements ServletContextAware
 			} else {
 				file1.createNewFile();
 			}
-			List<MstLabelBo> list = new ArrayList<MstLabelBo>();
-					//allRepo.getLableListData();
+			List<MstLabelBo> list =allRepo.getLableListData();
 			OutputStream os, os1 = null;
 			Properties propEn = new Properties();
-			Properties propKn = new Properties();
+			Properties propGuj = new Properties();
 			if (list != null && list.size() > 0) {
 				for (MstLabelBo s : list) {
 					if ("1".equals(s.getStatus())) {
-						if (s.getLabel_eng_name() != null && s.getLabel_knd_name() != null) {
-							propEn.setProperty(s.getLabel_key(), s.getLabel_eng_name());
-							propKn.setProperty(s.getLabel_key(), s.getLabel_knd_name().trim());
-						} else if (s.getLabel_eng_name() != null && s.getLabel_knd_name() == null) {
-							propEn.setProperty(s.getLabel_key(), s.getLabel_eng_name());
-							propKn.setProperty(s.getLabel_key(), s.getLabel_eng_name());
-						} else if (s.getLabel_eng_name() == null && s.getLabel_knd_name() != null) {
-							propEn.setProperty(s.getLabel_key(), s.getLabel_knd_name().trim());
-							propKn.setProperty(s.getLabel_key(), s.getLabel_knd_name().trim());
-						}
-					} else if ("E".equals(s.getStatus())) {
-						if (s.getLabel_eng_name() != null) {
-							propEn.setProperty(s.getLabel_key(), s.getLabel_eng_name());
-						} else if (s.getLabel_eng_name() != null) {
-							propEn.setProperty(s.getLabel_key(), s.getLabel_knd_name().trim());
-						}
-					} else if ("K".equals(s.getStatus())) {
-						if (s.getLabel_knd_name() != null) {
-							propKn.setProperty(s.getLabel_key(), s.getLabel_knd_name().trim());
-						} else if (s.getLabel_eng_name() != null) {
-							propKn.setProperty(s.getLabel_knd_name(), s.getLabel_eng_name());
+						if (s.getLabel_name_eng() != null && s.getLabel_name_guj() != null) {
+							propEn.setProperty(s.getLabel_key(), s.getLabel_name_eng());
+							propGuj.setProperty(s.getLabel_key(), s.getLabel_name_guj().trim());
+						} else if (s.getLabel_name_eng() != null && s.getLabel_name_guj() == null) {
+							propEn.setProperty(s.getLabel_key(), s.getLabel_name_eng());
+							propGuj.setProperty(s.getLabel_key(), s.getLabel_name_eng());
+						} else if (s.getLabel_name_eng() == null && s.getLabel_name_guj() != null) {
+							propEn.setProperty(s.getLabel_key(), s.getLabel_name_guj().trim());
+							propGuj.setProperty(s.getLabel_key(), s.getLabel_name_guj().trim());
 						}
 					}
 				}
@@ -134,7 +81,7 @@ public class ConfigLoadMapDynamically implements ServletContextAware
 			os1 = new FileOutputStream(resource1.getFile());
 
 			propEn.store(os, "US property file");
-			propKn.store(os1, "Kannada property file");
+			propGuj.store(os1, "Gujarati property file");
 			os.close();
 			os1.close();
 			return true;
@@ -206,7 +153,7 @@ public class ConfigLoadMapDynamically implements ServletContextAware
 		
 		try {
 			if (setPropertyLabelPath()) {
-//				generateLabelPropertyFile(CommonUtility.label_Path);
+				generateLabelPropertyFile();
 //				getAllMenuXmlFileFromLocalPath(servletContext);
 			}
 		} catch (Exception e) {

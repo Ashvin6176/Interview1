@@ -62,18 +62,26 @@ width: 8% !important;
 .modal.show .modal-dialog.modal-dialog-zoom {-webkit-transform: translate(0,0)scale(1);transform: translate(0,0)scale(1);}
 	</style>
 <header class="main-header">
-  <a href="/HCG/main/loadDashboard" class="logo" id="logoHomeClick" style="cursor: pointer;">
+<c:choose>
+		<c:when test="${sessionScope.lang eq 'guj' or sessionScope.lang eq 'guj' }">
+			<fmt:setBundle basename="MAHADEV_GUJ" var="mahadevlbl" scope="request"/>
+		</c:when>
+		<c:otherwise>
+		 	<fmt:setBundle basename="MAHADEV_EN" var="mahadevlbl" scope="request"/>
+		</c:otherwise>
+	</c:choose>
+  <a href="/MAHADEV/main/loadDashboard" class="logo" id="logoHomeClick" style="cursor: pointer;">
     <b class="logo-mini">
       <span class="light-logo"><img src="<%=request.getContextPath()%>/resources/images/logo-light.png" alt="logo"></span>
       <span class="dark-logo"><img src="<%=request.getContextPath()%>/resources/images/logo-light.png" alt="logo"></span>
     </b>
     <span class="logo-lg">
-    	<h2>Mahadev</h2>
+    	<h2></h2>
 <%-- 	    <img src="<%=request.getContextPath()%>/resources/images/logo-light-text.png" alt="logo" class="light-logo"> --%>
 <%-- 	    <img src="<%=request.getContextPath()%>/resources/images/logo-dark-text.png" alt="logo" class="dark-logo">	 --%>
     </span>
     </a>
-	<fmt:setBundle basename="hrms_en" var="hrmsLabels" scope="request"/>
+	
 	<fmt:setBundle basename="Config.CommonConfig" var="commonConfig" scope="application"/>
 	<fmt:message bundle="${commonConfig}" key="commonAdminAndUserService" var="commonAdminAndUserService"/>
 	
@@ -101,7 +109,7 @@ width: 8% !important;
       	<a href="#" class="fa fa-bars text-white" data-toggle="push-menu" role="button">
       		<span class="sr-only">Toggle navigation</span>
       	</a>  
-      	    <div style="margin-left:30px"><h1><%=Constants.PROJECT_NAME%></h1></div></div>
+      	    <div style="margin-left:30px"><h1><fmt:message bundle="${mahadevlbl}" key="MAHADEV" /></h1></div></div>
       	    
       	<div class="navbar-custom-menu">
         	<ul class="nav navbar-nav">
@@ -149,10 +157,10 @@ width: 8% !important;
  			
 	              <li class="user-body border-top-0">
 	                <div class="row no-gutters">
-		                <div class="col-12 text-left">
-		                    <a href="#viewUserProfileModal" data-toggle="modal"><i class="fa fa-user"></i> My Profile</a>
-		                </div>
-	        			<div role="separator" class="divider col-12"></div>
+<!-- 		                <div class="col-12 text-left"> -->
+<!-- 		                    <a href="#viewUserProfileModal" data-toggle="modal"><i class="fa fa-user"></i> My Profile</a> -->
+<!-- 		                </div> -->
+<!-- 	        			<div role="separator" class="divider col-12"></div> -->
 	          			<div class="col-12 text-left">
 	                    	<a href="#" onclick="logout();"><i class="fa fa-power-off"></i> Logout</a>
 	                  	</div>        
@@ -875,7 +883,7 @@ $(document).ready(() => {
 			  <div class="modal-dialog modal-lg" role="dialog">
 				<div class="modal-content">
 				  <div class="modal-header ">
-					<p class="modal-title" id="uploadDocModalLabelId"><fmt:message bundle="${hrmsLabels}" key="ADD_NEW_DOCUMENTS"/></p>
+					<p class="modal-title" id="uploadDocModalLabelId"><fmt:message bundle="${mahadevlbl}" key="ADD_NEW_DOCUMENTS"/></p>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
 				  </div>
 				  <div class="modal-body">
@@ -893,7 +901,7 @@ $(document).ready(() => {
 		  <div class="modal-dialog modal-lg">
 			<div class="modal-content">
 			  <div class="modal-header">
-				<p class="modal-title" id="DocumentLabelId"><fmt:message bundle="${hrmsLabels}" key="UPLOAD"/></p>
+				<p class="modal-title" id="DocumentLabelId"><fmt:message bundle="${mahadevlbl}" key="UPLOAD"/></p>
 				<button type="button" class="close" onclick="closeViewUploadedDocumentModel();">
 				  <span aria-hidden="true">X</span>
 				</button>

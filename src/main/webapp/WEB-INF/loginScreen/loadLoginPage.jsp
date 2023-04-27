@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="com.mahadev.constant.Constants"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -239,9 +240,9 @@ span.button__text {
 </head>
 
 <body>
-
+<fmt:setBundle basename="MAHADEV" var="mahadevLbl" scope="request"/>
 <div class="projectname">
-<h2>Mahadev</h2> 
+<h2><fmt:message bundle="${mahadevLbl}" key="MAHADEV" /></h2> 
 </div> 
 
 <div class="login-main-bg">
@@ -266,6 +267,12 @@ span.button__text {
 							<div class="login__field">
 								<i class="login__icon fas fa-lock"></i>
 								<input type="password" name="password" id="password" class="login__input" placeholder="Password">
+							</div>
+							<div class="row text-left mb-1">
+							 <div class="col-12">
+									<input type="radio" class="with-gap radio-col-deep-orange" id="en" name="lang" value="en" checked="checked"><label class="FormLabelClass" for="en">English</label>
+									<input type="radio" class="with-gap radio-col-deep-orange" id="kn" name="lang" value="guj"><label class="FormLabelClass" for="kn">Gujarati</label>
+								</div> 
 							</div>
 							<div class="row">
 								<div class="col-12">

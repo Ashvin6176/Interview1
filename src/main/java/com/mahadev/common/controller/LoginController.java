@@ -43,6 +43,10 @@ public class LoginController {
     
 	@RequestMapping(value = "loginPage")
 	public ModelAndView loadLoginPage(HttpServletRequest request, HttpServletResponse response,RedirectAttributes redirectAttribute) {
+		HttpSession session=request.getSession(false);
+		if(session!=null) {
+			session.invalidate();
+		}
 		return new ModelAndView("loadloginPage");
 	}
 	
@@ -50,7 +54,7 @@ public class LoginController {
 	public ModelAndView loadforgotPassword() {
 		return new ModelAndView("loadforgotPassword");
 	}
-	@PostMapping(value="/CheckUserLogin")
+	@RequestMapping(value="/CheckUserLogin")
 	public ModelAndView checkUserLogin( @Valid @ModelAttribute LoginBo loginBo,BindingResult b, HttpServletRequest request,HttpServletResponse response,RedirectAttributes redirectAttribute) throws Exception{
 		ResponseBo resData=new ResponseBo();
 		String secret = Constants.KSBCL_LOGIN_SECRET_KEY_ID;
@@ -94,6 +98,7 @@ public class LoginController {
 			 loginBo=(LoginBo) resData.getService_data();
 			session.setAttribute("user_id",  String.valueOf(loginBo.getUser_id()));
 			session.setAttribute("user_name",  String.valueOf(loginBo.getUser_name()));
+			session.setAttribute("lang", request.getParameter("lang"));
 			return new ModelAndView("loadDashboard");
 		}else {
 			request.setAttribute("responseBo", resData);
@@ -103,26 +108,25 @@ public class LoginController {
 	}	
 	
 	@RequestMapping(value = "/logout")
-	public String loadLogout(HttpServletRequest request,HttpServletResponse response,RedirectAttributes redirectAttribute ) throws IOException {
-		String text_type=request.getParameter("text_type");
-		request.setAttribute("text_type",text_type);
-		// get current session
-		if(request.getSession() != null) {
-			HttpSession session=request.getSession(false);
-			if(session.getAttribute("user_id") !=null && session.getAttribute("user_id") != "")
-			{
-				session.invalidate();
-			}
+	public ModelAndView logout(HttpServletRequest req,HttpServletResponse res) throws Exception
+	{
+		String activityId = req.getParameter("activity_id");
+		String userId = req.getParameter("user_id");
+		String sessionOutMsg = req.getParameter("sessionOutMsg");
+		
+//		req.setAttribute("sessionOutMsg", sessionOutMsg);
+//		bo.setLst_upd_date(new Date());
+//		bo.setLst_upd_ip(CommonUtility.getIp(req));
+//		bo.setLst_upd_user(userId);
+//		bo.setActivity_id(activityId);
+//		bo.setActivity_end_date(new Date());
+//		loginService.userLogoutService(bo);
+		
+		HttpSession session = req.getSession(false);
+		if(session != null) {
+			session.invalidate();
 		}
-		if(text_type != null && !text_type.equals("")) {
-			redirectAttribute.addFlashAttribute(Constants.MSG_NAME,text_type );
-			redirectAttribute.addFlashAttribute(Constants.MSG_PRIORITY, Constants.MSG_PRIORITY_SUCCESS);
-			redirectAttribute.addFlashAttribute(Constants.MSG_TITLE, "Login");
-		}
-		 return "redirect:login";
-		 
-//		 return null;
-		//return this.loadLoginPage();
+		return new ModelAndView("logout");
 	}
 	public static byte[][] GenerateKeyAndIV(int keyLength, int ivLength, int iterations, byte[] salt, byte[] password, MessageDigest md) {
 
