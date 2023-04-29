@@ -125,4 +125,9 @@
 	</definition>
 <!-- End :: Bhavik Bhimani -->
 
+
+<definition name="loadBookUsers" extends="base.definition">
+		<put-attribute name="title" value="Book Users" />
+		<put-attribute name="body" value="/WEB-INF/pages/User/loadBookUsers.jsp"/>
+	</definition>
 </tiles-definitions>
