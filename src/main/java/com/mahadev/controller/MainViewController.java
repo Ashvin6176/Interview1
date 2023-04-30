@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,5 +26,9 @@ public class MainViewController {
 			req.setAttribute("user_id", "test");
 		}
 		return new ModelAndView("loadDashboard");
+	}
+	@RequestMapping(value = "/loadBookUsers")
+	public ModelAndView loadBookUsers(HttpServletRequest req,HttpServletResponse res) {
+		return new ModelAndView("loadBookUsers");
 	}
 }
