@@ -12,12 +12,7 @@
     <div id="div_menu_id">
         <ul class="sidebar-menu" data-widget="tree">
         	<li class="treeview">
-         		 <a href="#" onclick="loadBookUsers()"><i class="far fa-circle ion"></i>Book Users</a>
-<!-- 		         <ul class="treeview-menu"> -->
-<!-- 		         	<li><a href="#" onclick="loadManagePatient()"><i class="far fa-circle ion"></i>Manage Patient</a></li> -->
-<!-- 		         	<li><a href="#" onclick="loadManageCareGiver()"><i class="far fa-circle ion"></i>Manage Care Giver</a></li> -->
-<!-- 		            <li><a href="#" onclick="loadManageInsuranceCompany()"><i class="far fa-circle ion"></i>Manage Insurance Company</a></li> -->
-<!-- 		         </ul>	 -->
+         		 <a href="#" onclick="loadCreateUser()"><i class="far fa-circle ion"></i>Create User</a>
          	</li>
          	<li class="treeview">
          		 <a href="#"><i class="fa fa-th"></i><span>Transactions</span><span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span></a>

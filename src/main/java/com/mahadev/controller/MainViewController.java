@@ -31,4 +31,9 @@ public class MainViewController {
 	public ModelAndView loadBookUsers(HttpServletRequest req,HttpServletResponse res) {
 		return new ModelAndView("loadBookUsers");
 	}
+	@RequestMapping(value = "loadCreateUser")
+	public ModelAndView loadCreateUser(HttpServletRequest request,HttpServletResponse response) {
+		return new ModelAndView("loadCreateUser");
+		
+	}
 }

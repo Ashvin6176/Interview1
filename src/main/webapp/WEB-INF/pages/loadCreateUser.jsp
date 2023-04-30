@@ -1,6 +1,6 @@
-<%@page import="com.ict.mahadev.constant.Constants"%>
+<%@page import="com.mahadev.constant.Constants"%>
 <%-- <%@page import="com.ict.mahadev.constant.UrlOperationalConstant"%> --%>
-<%@page import="com.ict.utils.CommonUtility"%>
+<%@page import="com.utils.CommonUtility"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%-- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> --%>
@@ -47,7 +47,7 @@ padding: 5px 15px !important;
 					         <div class="row">					         
 					            <div class="col-md-6">
 						             <div class="form-group">
-						              		<input type="hidden" id="user_id" name="user_id">
+						              		<input type="hidden" id="user_id" name="user_id" value="0">
 						              		<input type="hidden" id="status" name="status">
 											Full Name:<input type="text" class="form-control  ValidateInput SimpleTextWithSpaceRegexClass " id="full_name" name="full_name"  onkeyup="validateRegex(this)"/> 
 									 </div>
@@ -84,12 +84,12 @@ padding: 5px 15px !important;
 									</div>
 									<div class="col-md-6">
 									 <div class="form-group">
-											Check:<input type="file" class="form-control  ValidateInput  " id="check" name="check"  onkeyup="validateRegex(this)"/> 
+											Check:<input type="file" class="form-control  ValidateInput  " id="check" name="check_temp"  onkeyup="validateRegex(this)"/> 
 									 </div>
 									</div>
 									<div class="col-md-6">
 									 <div class="form-group">
-											AdharCard:<input type="file" class="form-control  ValidateInput  " id="adharcard" name="adharcard"  onkeyup="validateRegex(this)"/> 
+											AdharCard:<input type="file" class="form-control  ValidateInput  " id="adharcard" name="adhar"  onkeyup="validateRegex(this)"/> 
 									 </div>
 									</div>
 									
@@ -156,9 +156,9 @@ padding: 5px 15px !important;
 
 <script>
 var table;
-var crtUser;
+var user_id='${sessionScope.user_id}';
 $('document').ready(function() {
-	crtUser = localStorage.getItem("user_id");
+	
 	getMstCreateUserData();
 	$("#updateBtn").addClass("hide");
 	 $("button").click(function() {
@@ -226,7 +226,6 @@ function getMstCreateUserData(){
 
 function saveMstCreateUser()
 { 	
-	$("#user_id").val('');
 	var flag=true;
  	flag=formValidate("validateDivId");
  	if(flag)
@@ -237,9 +236,12 @@ function saveMstCreateUser()
  							buttons : confirmCancelButton,
  							callback : function(result) {
  								if (result) {
- 										var serviceURL = '${pageContext.request.contextPath}/mainAjax/'+user_id+'/saveMstCreateUser';
- 	 	 								var serviceData = $("#CreateUserFormId").serialize();
- 										var map = saveFormApplication(serviceURL,serviceData, 'loader', 'CreateUserFormId');
+ 										var serviceURL = '${pageContext.request.contextPath}/mainAjax/saveMstCreateUser/'+user_id;
+ 	 	 								// var serviceData = $("#CreateUserFormId").serialize();
+										var form=$("#CreateUserFormId");
+						                var serviceData = new FormData(form[0]);
+										console.log(serviceData);
+ 										var map = saveFormApplicationWithMultiPart(serviceURL,serviceData, 'loader', 'CreateUserFormId');
  										var serviceStatus = map.get("serviceStatus");
  										var res = map.get("serviceResponse");
  										if (serviceStatus === 1) {

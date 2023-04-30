@@ -30,7 +30,7 @@ public class CommonTableFieldBo {
 	@Column(name = "LST_UPD_IP")
 	private String lstUpdIp;
 	
-	@Column(name = "STATUS", updatable = false)
+	@Column(name = "STATUS")
 	private String status;
 	
 	// Transient fields

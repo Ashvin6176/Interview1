@@ -169,9 +169,6 @@ function saveFormApplication(serviceURL,ServiceData,loaderId,formId)
 				type : "POST",
 				data :  ServiceData,
 				url : serviceURL,
-				headers: {
- 	                    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
- 	                 },	
 				async:false,
 				success : function(res) 
 				{
@@ -1267,7 +1264,7 @@ var map=new Map();
 }
 
 
-function saveFormApplicationWithMultiPartAndCallBack(serviceURL,ServiceData,loaderId,formId,callbackMethod)
+function saveFormApplicationWithMultiPart(serviceURL,ServiceData,loaderId,formId)
 {
 	let map = new Map();
 	map.set("serviceStatus",0);
@@ -1279,8 +1276,9 @@ function saveFormApplicationWithMultiPartAndCallBack(serviceURL,ServiceData,load
 			data :  ServiceData,
 			url : serviceURL,
 			cache : false,
-		    contentType : false,
-		    processData : false,
+			contentType : false,
+			processData : false,
+			async:false,
 		    beforeSend: function(){
 		        $("#"+loaderId).show();
 		    },
@@ -1344,7 +1342,8 @@ function saveFormApplicationWithMultiPartAndCallBack(serviceURL,ServiceData,load
 					map.set("serviceStatus",0);
 					openToastMessage("Error Message","Response is null","error");
 				}
-				callbackMethod(map);
+				// callbackMethod(map);
+
 			},
 			error : function(xhr, status, errorThrown) {
 				map.set("serviceStatus",0);
@@ -1363,7 +1362,7 @@ function saveFormApplicationWithMultiPartAndCallBack(serviceURL,ServiceData,load
 			    } else {
 			    	map.set("serviceResponse","Uncaught Error.\n'" + xhr.responseText);
 			    }
-			    callbackMethod(map);
+			   // callbackMethod(map);
 			}
 		});
 	}
@@ -1373,6 +1372,7 @@ function saveFormApplicationWithMultiPartAndCallBack(serviceURL,ServiceData,load
 		map.set("serviceResponse",e.message);
 		callbackMethod(map);
 	}
+	return map;
 }
 
 function SingleDocumentUploadUsingAjax(serviceURL, ServiceData, fileId)
