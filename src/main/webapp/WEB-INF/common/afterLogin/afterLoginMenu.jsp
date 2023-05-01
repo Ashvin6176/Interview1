@@ -13,6 +13,7 @@
         <ul class="sidebar-menu" data-widget="tree">
         	<li class="treeview">
          		 <a href="#" onclick="loadCreateUser()"><i class="far fa-circle ion"></i>Create User</a>
+         		 <a href="#" onclick="loadAddBookEntry()"><i class="far fa-circle ion"></i>Add Book Entry</a>
          	</li>
          	<li class="treeview">
          		 <a href="#"><i class="fa fa-th"></i><span>Transactions</span><span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span></a>

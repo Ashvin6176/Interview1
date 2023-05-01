@@ -87,10 +87,10 @@ public class AjaxCommonController {
 		returnMap = commonProcSer.getMahadevMasterWebServices(map);
 
 		if (returnMap != null && returnMap.size() > 0 && !returnMap.isEmpty()) {
-			JSONArray json = (JSONArray) returnMap.get("json");
+			String json = (String) returnMap.get("json");
 //			PGobject p=(PGobject) returnMap.get("P_OUT");
 			if (json != null) {
-				return ResponseEntity.ok((Object) json.toString());
+				return ResponseEntity.ok((Object) json);
 //				obj.setResponseData(json.toString());
 //				obj.setStatus(1000);
 //				return ResponseEntity.ok((Object)obj);

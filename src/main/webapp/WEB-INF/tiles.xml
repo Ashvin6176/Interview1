@@ -134,4 +134,8 @@
 		<put-attribute name="title" value="Create User" />
 		<put-attribute name="body" value="/WEB-INF/pages/loadCreateUser.jsp"/>
 	</definition>
+	<definition name="loadAddBookEntry" extends="base.definition">
+		<put-attribute name="title" value="Add Book Entry" />
+		<put-attribute name="body" value="/WEB-INF/pages/addBookEntry.jsp"/>
+	</definition>
 </tiles-definitions>

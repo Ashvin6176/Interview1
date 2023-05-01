@@ -10,4 +10,9 @@ function loadCreateUser()
 	document.menuFrom.action="${pageContext.request.contextPath}/main/loadCreateUser";
 	document.menuFrom.submit();
 }
+function loadAddBookEntry()
+{
+	document.menuFrom.action="${pageContext.request.contextPath}/main/loadAddBookEntry";
+	document.menuFrom.submit();
+}
 </script>

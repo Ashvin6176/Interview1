@@ -769,7 +769,7 @@ var map=new Map();
 									
 									 for(var i=0;i<response.length;i++)
 										 {
-											 var option1 = $("<option/>").attr("value",response[i].data_id).append(response[i].data_value)
+											 var option1 = $("<option/>").attr("value",response[i].data_id).append(response[i].data_name)
 										 	$("#"+selectId).append(option1); 
 										 }
 									 $("#loader").css("display","none");

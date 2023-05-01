@@ -36,4 +36,9 @@ public class MainViewController {
 		return new ModelAndView("loadCreateUser");
 		
 	}
+	@RequestMapping(value = "loadAddBookEntry")
+	public ModelAndView loadAddUserEmi(HttpServletRequest request,HttpServletResponse response) {
+		return new ModelAndView("loadAddBookEntry");
+		
+	}
 }
