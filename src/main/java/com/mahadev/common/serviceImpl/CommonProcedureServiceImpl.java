@@ -2,7 +2,6 @@ package com.mahadev.common.serviceImpl;
 
 import java.util.Map;
 
-import org.postgresql.util.PGobject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +15,13 @@ public class CommonProcedureServiceImpl implements CommonProcedureService{
 	CommonProcedureDao commonProcDao;
 	
 	@Override
-	public Map<String, Object> getHrmsCommonWebService(Map<String, Object> setMap) throws Exception {
-		// TODO Auto-generated method stub
-		return commonProcDao.getHrmsCommonWebService(setMap);
-	}
-
-	@Override
-	public Map<String, Object> getHCGMasterWebServices(Map<String, Object> setMap) throws Exception {
+	public Map<String, Object> getMahadevMasterWebServices(Map<String, Object> setMap) throws Exception {
 	
-		return commonProcDao.getHCGMasterWebServices(setMap);
+		return commonProcDao.getMahadevMasterWebServices(setMap);
 	}
 	@Override
-	public Map<String, Object> getUserManagementWebService(Map<String, Object> setMap) throws Exception {
-		return commonProcDao.getUserManagementWebServices(setMap);
+	public Map<String, Object> getWebServicesData(Map<String, Object> map) throws Exception {
+		return commonProcDao.getWebServicesData(map);
 	}
 	
 }

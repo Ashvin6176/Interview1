@@ -180,7 +180,7 @@ function getMstCreateUserData(){
 	$('#dataTableId').DataTable().destroy();
 	$("#dataTableId > tbody").empty();
 	 var mstTableData = {};
-	 var mstTableDataUrl='${pageContext.request.contextPath}/ajax/getUserManagementWebService?serviceName=getBeneficiaryTypeMasterData&serviceType=MASTER';
+	 var mstTableDataUrl='${pageContext.request.contextPath}/ajax/getWebServicesData?serviceName=getRegisterUser&serviceType=MASTER';
 	 var mstTableDataMap=genericAjaxCallForJsonWithLoader(mstTableDataUrl,JSON.stringify(mstTableData),"loader");
 	 var mstTableDataStatus=mstTableDataMap.get("serviceStatus");
 	 var mstTableDataCnt=mstTableDataMap.get("serviceResponse"); 
@@ -197,19 +197,23 @@ function getMstCreateUserData(){
 			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].pincode));
 			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].capital));
 			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].percentage));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].check));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].adharcard));
-			var button=$("<button/>").addClass("label label-edit m-1 defaultPrivilege editButtonClassDesign removeExcelColumn").attr("type", "button").attr("onclick","BindDataForUpdat('"+mstTableDataCnt[index].user_id+"')");
+			let viewBtn=$("<button/>").addClass("btn btn-success label label-edit m-1 defaultPrivilege editButtonClassDesign removeExcelColumn").attr("type", "button").attr("onclick","getDocBytes('"+mstTableDataCnt[index].user_id+"','check')").append("View");
+			let viewBtn1=$("<button/>").addClass("btn btn-success label label-edit m-1 defaultPrivilege editButtonClassDesign removeExcelColumn").attr("type", "button").attr("onclick","getDocBytes('"+mstTableDataCnt[index].user_id+"','adhar')").append("View");
+			//bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].check_img));
+			//bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].adharcard));
+			bodyRow.append( $("<td/>").addClass("text-center").append(viewBtn));
+			bodyRow.append( $("<td/>").addClass("text-center").append(viewBtn1));
+			var button=$("<button/>").addClass("btn btn-success label label-edit m-1 defaultPrivilege editButtonClassDesign removeExcelColumn").attr("type", "button").attr("onclick","BindDataForUpdat('"+mstTableDataCnt[index].user_id+"')");
 			var bi=$("<i/>").addClass("fas fa-pencil-alt mr-1");			
 			
 			if(mstTableDataCnt[index].status == "1")
 			{
-				var button1=$("<button/>").addClass("label label-deactivate m-1 deactivatePrivilege deactivateButtonClassDesign").attr("type","button").attr("onclick","ActivateDeActivateMstUser('"+mstTableDataCnt[index].user_id+"','0')");
+				var button1=$("<button/>").addClass("btn btn-danger label label-deactivate m-1 deactivatePrivilege deactivateButtonClassDesign").attr("type","button").attr("onclick","ActivateDeActivateMstUser('"+mstTableDataCnt[index].user_id+"','0')");
 				button1.append("DEACTIVATE");
 			}
 			else
 			{
-				var button1=$("<button/>").addClass("label label-activate m-1 activatePrivilege activateButtonClassDesign").attr("type","button").attr("onclick","ActivateDeActivateMstUser('"+mstTableDataCnt[index].user_id+"','1')");
+				var button1=$("<button/>").addClass("btn btn-success label label-activate m-1 activatePrivilege activateButtonClassDesign").attr("type","button").attr("onclick","ActivateDeActivateMstUser('"+mstTableDataCnt[index].user_id+"','1')");
 				button1.append("ACTIVATE");			
 			}
 			
@@ -245,7 +249,7 @@ function saveMstCreateUser()
  										var serviceStatus = map.get("serviceStatus");
  										var res = map.get("serviceResponse");
  										if (serviceStatus === 1) {
-//  											getMstCreateUserData();
+ 											getMstCreateUserData();
  											resetData();
  										}
  								}
@@ -350,6 +354,22 @@ function resetData()
 	$("#saveBtn").removeClass("hide");
 	$("#updateBtn").addClass("hide");
 	$("#user_id").val('');
+}
+function getDocBytes(user_idd,doc_type) {
+	var mstTableData = {"user_id":user_idd,"doc_type":doc_type};
+	 var mstTableDataUrl='${pageContext.request.contextPath}/ajax/getWebServicesData?serviceName=getRegisterUserDoc&serviceType=MASTER';
+	 var mstTableDataMap=genericAjaxCallForJsonWithLoader(mstTableDataUrl,JSON.stringify(mstTableData),"loader");
+	 var mstTableDataStatus=mstTableDataMap.get("serviceStatus");
+	 var mstTableDataCnt=mstTableDataMap.get("serviceResponse"); 
+ 	if(mstTableDataStatus === 1 &&  mstTableDataCnt.length > 0){
+		$.each(mstTableDataCnt,function(index){
+			
+				viewDocument1(mstTableDataCnt[index].base_data,mstTableDataCnt[index].extension);
+			
+		});	
+		
+		
+	}
 }
 </script>
 

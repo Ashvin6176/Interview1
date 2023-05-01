@@ -1334,13 +1334,15 @@ function saveFormApplicationWithMultiPart(serviceURL,ServiceData,loaderId,formId
 					else if(res.status === 0)
 					{
 						map.set("serviceStatus",0);
-						openToastMessage("Error Message",res.return_message,"error");
+						//openToastMessage("Error Message",res.return_message,"error");
+						toastr.error(res.return_message,"ERROR",{ closeButton:true});
 					}
 				}
 				else
 				{
 					map.set("serviceStatus",0);
-					openToastMessage("Error Message","Response is null","error");
+					// openToastMessage("Error Message","Response is null","error");
+					toastr.error("Response is null","ERROR",{ closeButton:true});
 				}
 				// callbackMethod(map);
 
@@ -1370,7 +1372,7 @@ function saveFormApplicationWithMultiPart(serviceURL,ServiceData,loaderId,formId
 	{
 		map.set("serviceStatus",0);
 		map.set("serviceResponse",e.message);
-		callbackMethod(map);
+		//callbackMethod(map);
 	}
 	return map;
 }
@@ -1446,12 +1448,12 @@ function getAllDocuments(serviceURL, ServiceData)
 
 function fillDropdownCommon(selectId,serviceName,serviceData)
 {
-	fillDropdown('../ajax/getHCGMasterWebServices?service_name='+serviceName,serviceData,selectId);  
+	fillDropdown('../ajax/getMahadevMasterWebServices?service_name='+serviceName,serviceData,selectId);  
 }
 
 function fillDropdownCommonWithAll(selectId,serviceName,serviceData)
 {
-	fillDropdownWithAll('../ajax/getHCGMasterWebServices?service_name='+serviceName,serviceData,selectId);  
+	fillDropdownWithAll('../ajax/getMahadevMasterWebServices?service_name='+serviceName,serviceData,selectId);  
 }
 
 function generatemain(tableId,reportname)
@@ -1703,3 +1705,17 @@ function showSuccess(message)
 	$('#successMessageBox').find('.success_message').text(message);
 	$('#successMessageBox').modal('show');
 }
+function viewDocument1(file_bytes,extension){
+
+	if(extension == ".pdf"){
+		$("#viewUploadedDocumentId").append(
+			$("<iframe/>").attr("height","600px").attr("width","100%").attr("alt","UMS").attr('src', 'data:application/pdf;base64,'+file_bytes)
+		);
+	}else{
+		$("#viewUploadedDocumentId").append($('<div/>').attr("class","scroll-img").append(
+			$("<img/>").attr("href","#").attr("width","100%").attr("height","400px").attr("alt","UMS").attr('src', 'data:image/jpg;base64,'+file_bytes))
+		);
+	}
+openViewUploadedDocumentModel();
+					
+} 

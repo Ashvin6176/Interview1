@@ -11,7 +11,7 @@ import com.mahadev.common.entityModel.WebResponseJsonBo;
 public interface MainService {
 	WebResponseJsonBo updateMstUser(Map<String, Object> map);
 
-	WebResponseJsonBo saveMstCreateUser(Map<String, Object> map);
+	WebResponseJsonBo saveMstCreateUser(Map<String, Object> map)throws IOException;
 
 	WebResponseJsonBo ActivateDeActivateMstUser(Map<String, Object> map);
 }

@@ -138,12 +138,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<!--END :: JSP dependency -->
-		<!--START :: DB dependency  -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
-		<!--END :: DB dependency  -->
 		<!-- START :: HIBERNATE ANNOTATION -->
 
 		<!-- END   :: HIBERNATE ANNOTATION -->
@@ -303,7 +297,11 @@
 			<artifactId>poiji</artifactId>
 			<version>4.1.1</version>
 		</dependency>
-
+		<dependency>
+		    <groupId>com.oracle.jdbc</groupId>
+		    <artifactId>ojdbc8</artifactId>
+		    <version>12.2.0.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

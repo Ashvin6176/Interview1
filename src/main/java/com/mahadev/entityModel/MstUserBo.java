@@ -43,10 +43,16 @@ public class MstUserBo extends CommonTableFieldBo {
 	private String percentage;
 	
 	@Column(name="check_img")
-	private String check_img;
+	private byte[] check_img;
 	
 	@Column(name="adharcard")
-	private String adharcard;
+	private byte[] adharcard;
+	
+	@Column(name="check_exe")
+	private String check_exe;
+	
+	@Column(name="adhar_exe")
+	private String adhar_exe;
 	
 	@Transient
 	private MultipartFile check_temp;
@@ -114,16 +120,28 @@ public class MstUserBo extends CommonTableFieldBo {
 		this.percentage = percentage;
 	}
 	
-	public String getCheck_img() {
+	public byte[] getCheck_img() {
 		return check_img;
 	}
-	public void setCheck_img(String check_img) {
+	public void setCheck_img(byte[] check_img) {
 		this.check_img = check_img;
 	}
-	public String getAdharcard() {
+	public byte[] getAdharcard() {
 		return adharcard;
 	}
-	public void setAdharcard(String adharcard) {
+	public void setAdharcard(byte[] adharcard) {
 		this.adharcard = adharcard;
+	}
+	public String getCheck_exe() {
+		return check_exe;
+	}
+	public void setCheck_exe(String check_exe) {
+		this.check_exe = check_exe;
+	}
+	public String getAdhar_exe() {
+		return adhar_exe;
+	}
+	public void setAdhar_exe(String adhar_exe) {
+		this.adhar_exe = adhar_exe;
 	}
 }

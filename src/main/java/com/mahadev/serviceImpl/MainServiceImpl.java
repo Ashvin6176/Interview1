@@ -70,7 +70,7 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public WebResponseJsonBo saveMstCreateUser(Map<String, Object> map) {
+	public WebResponseJsonBo saveMstCreateUser(Map<String, Object> map) throws IOException {
 		WebResponseJsonBo obj=new WebResponseJsonBo();
 		Map<String, Object> returnMap = mainDao.saveMstCreateUser(map);
 		String msg=(String)returnMap.get("returnMsg");
