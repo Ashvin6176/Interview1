@@ -7,6 +7,21 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <style type="text/css">
+    fieldset{
+	padding: 30px;
+    border: 1px solid #ff7468 !important;
+    background:#f6f8ff !important;
+    border-radius: 25px;
+    border-width: thin;
+    margin-bottom: 20px;
+}
+
+legend {
+		width:unset;
+        padding: 20px 0;
+        font-size: 20px;
+        font-weight: bold;
+      }
 .field_set{
   border-color: #F00;
   border-style: solid;
@@ -27,8 +42,8 @@ padding: 5px 15px !important;
       <div class="row">
         <div class="col-12">
           <div class="box box-default">
-            <div class="box-header with-border">
-            
+            <div class="box-header with-border text-center">
+             <b><h3>Add EMI Installment</h3></b>
 										
             </div>
             <!-- /.box-header -->
@@ -49,56 +64,83 @@ padding: 5px 15px !important;
 						             <div class="form-group">
 						              	
 											Select User:
-											<select class="form-control ValidateInput" name="user_id" id="user_id" onchange="">
-												<option value="">--Select--</option>
-												<option value="BOOK">Book Entry</option>
+											<select class="form-control ValidateInput select2" name="user_id" id="user_id" onchange="loadRunnigBook(this.value)">
+												<option value="">--Select--</option>    
 											</select>
 									 </div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										   Book Name:<input type="text" class="form-control  ValidateInput" id="book_name" name="book_name" onchange="validateRegex(this);"  onkeyup="validateRegex(this);"/> 
+                                        Select Book:
+                                        <select class="form-control ValidateInput select2" name="book_id" id="book_id" onchange="getBookDetails(this.value);">
+                                            <option value="">--Select--</option>
+                                        </select>
 									</div>
 								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										   EMI Start Date:<input type="text" class="form-control  ValidateInput date_class" id="emi_start_date" name="emi_start_date" onchange="validateRegex(this);"  onkeyup="validateRegex(this);"/> 
-									</div>
-							   </div> 
+								
 								
 								
 							</div>	
-							<div class="row">
-								<div class="col-md-4">
-									<div class="form-group">
-										   Capital Amount:<input type="text" class="form-control  ValidateInput" id="capital_amount" name="capital_amount" onchange="validateRegex(this);calInterestAmount();"  onkeyup="validateRegex(this);calInterestAmount();"/> 
-									</div>
-							   </div> 
-								<div class="col-md-4">
-									<div class="form-group">
-										   Interest Per (%):<input type="text" class="form-control  ValidateInput" id="interest_per" name="interest_per" onchange="validateRegex(this);calInterestAmount();"  onkeyup="validateRegex(this);calInterestAmount();"/> 
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										   Interest Amount:<input type="text" class="form-control  ValidateInput" id="interest_amount" name="interest_amount" onchange=""  onkeyup="validateRegex(this)" readonly/> 
-									</div>
-								</div>
-								
-									
-							</div>	
-							<div class="row">
-								<div class="col-md-4">
-									<div class="form-group">
-										Daily Instalment Amount:<input type="text" class="form-control  ValidateInput" id="installment_amt" name="installment_amount" onchange=""  onkeyup="validateRegex(this)" readonly/> 
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										No. Of Instalment:<input type="text" class="form-control  ValidateInput" id="no_of_installment" name="no_of_installment" onchange=""  onkeyup="validateRegex(this)" readonly/> 
-									</div>
-								</div>
-							</div>										       
+                            <fieldset>
+                                <legend>Book Details</legend>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                               EMI Start Date:<input type="text" class="form-control  ValidateInput" id="emi_start_date" name="emi_start_date" onchange="validateRegex(this);"  onkeyup="validateRegex(this);" readonly/> 
+                                        </div>
+                                   </div> 
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                               Capital Amount:<input type="text" class="form-control  ValidateInput" id="capital_amount" name="capital_amount" onchange="validateRegex(this);calInterestAmount();"  onkeyup="validateRegex(this);calInterestAmount();" readonly/> 
+                                        </div>
+                                   </div> 
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                               Interest Per (%):<input type="text" class="form-control  ValidateInput" id="interest_per" name="interest_per" onchange="validateRegex(this);calInterestAmount();"  onkeyup="validateRegex(this);calInterestAmount();" readonly/> 
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                        
+                                </div>	
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                               Interest Amount:<input type="text" class="form-control  ValidateInput" id="interest_amount" name="interest_amount" onchange=""  onkeyup="validateRegex(this)" readonly/> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            Daily Instalment Amount:<input type="text" class="form-control  ValidateInput" id="installment_amt" name="installment_amount" onchange=""  onkeyup="validateRegex(this)" readonly/> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            No. Of Instalment:<input type="text" class="form-control  ValidateInput" id="no_of_installment" name="no_of_installment" onchange=""  onkeyup="validateRegex(this)" readonly/> 
+                                        </div>
+                                    </div>
+                                    
+                                </div>	
+                                <div class="row">
+                                   
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            No. Of Paid Instalment:<input type="text" class="form-control  ValidateInput" id="no_of_paid_installment" name="no_of_paid_installment" onchange=""  onkeyup="validateRegex(this)" readonly/> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            EMI Paid Amount:<input type="text" class="form-control  ValidateInput" id="paid_amount" name="paid_amount" onchange=""  onkeyup="validateRegex(this)" readonly/> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            EMI Remaining Amount:<input type="text" class="form-control  ValidateInput" id="paid_amount" name="paid_amount" onchange=""  onkeyup="validateRegex(this)" readonly/> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+																       
 					           <div class="row">
 						            <div class="col-md-12 text-center">
 						              <div class="form-group">
@@ -164,7 +206,7 @@ var user_id='${sessionScope.user_id}';
 $('document').ready(function() {
 	let webData={};
 	fillDropdownCommon("user_id","getAllUser",JSON.stringify(webData));
-	$('#user_id').select2({
+	$('.select2').select2({
 	  closeOnSelect: true
 	});
 	
@@ -177,10 +219,27 @@ $('document').ready(function() {
 			cell.innerHTML = i + 1;
 		});
 	}).draw();
-	getMstCreateUserData();
+	//getMstCreateUserData();
 });
-
-
+function loadRunnigBook(user_id) {
+    let webData={"user_id":user_id};
+    fillDropdownCommon("book_id","getRunningBook",JSON.stringify(webData));
+}
+function getBookDetails(book_id) {
+     var mstTableData = {"book_id":book_id};
+	 var mstTableDataUrl='${pageContext.request.contextPath}/ajax/getWebServicesData?serviceName=getBookDetailsByBookId&serviceType=MASTER';
+	 var mstTableDataMap=genericAjaxCallForJsonWithLoader(mstTableDataUrl,JSON.stringify(mstTableData),"loader");
+	 var mstTableDataStatus=mstTableDataMap.get("serviceStatus");
+	 var mstTableDataCnt=mstTableDataMap.get("serviceResponse"); 
+     if (mstTableDataStatus === 1 &&  mstTableDataCnt.length > 0) {
+        $("#emi_start_date").val(mstTableDataCnt[0].emi_start_date);
+        $("#capital_amount").val(mstTableDataCnt[0].capital_amount);
+        $("#interest_per").val(mstTableDataCnt[0].interest_per);
+        $("#interest_amount").val(mstTableDataCnt[0].interest_amount);
+        $("#installment_amt").val(mstTableDataCnt[0].installment_amt);
+        $("#no_of_installment").val(mstTableDataCnt[0].no_of_installment);
+     }
+}
 function getMstCreateUserData(){
 	$('#dataTableId').DataTable().destroy();
 	$("#dataTableId > tbody").empty();
@@ -236,7 +295,7 @@ function getMstCreateUserData(){
 			
 			$("#dataTableId > tbody").append(bodyRow)
 		});
-		// $('#dataTableId').DataTable();
+		$('#dataTableId').DataTable();
 	}
 //  	setTableButtonClassDesign();
 //  	$("#dataTableId").DataTable();

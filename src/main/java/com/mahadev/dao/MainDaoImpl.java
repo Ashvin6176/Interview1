@@ -75,7 +75,7 @@ public Map<String, Object> updateMstUser(Map<String, Object> map) {
 public Map<String, Object> saveAddBookEntry(Map<String, Object> map) throws IOException {
 	Map<String, Object> returnMap=new HashMap<>();
 	MstBookEntryBo bo=(MstBookEntryBo)map.get("webBo");
-	
+	bo.setIs_closed("N");
 	bo=allMainRepository.getMstBookEntryRepo().save(bo);
 	returnMap.put("returnMsg", Constants.MSG_SUCCESS);
 	returnMap.put("bo", bo);		

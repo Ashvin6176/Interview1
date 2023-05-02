@@ -152,15 +152,16 @@ $('document').ready(function() {
 	 $("button").click(function() {
          $(document).scrollTop($(document));
      });
-	table = $('#dataTableId').DataTable();
-	table.on('order.dt search.dt', function() {
-		table.column(0, {
-			search : 'applied',
-			order : 'applied'
-		}).nodes().each(function(cell, i) {
-			cell.innerHTML = i + 1;
-		});
-	}).draw();
+	//table = $('#dataTableId').DataTable();
+	// table.on('order.dt search.dt', function() {
+	// 	table.column(0, {
+	// 		search : 'applied',
+	// 		order : 'applied'
+	// 	}).nodes().each(function(cell, i) {
+	// 		cell.innerHTML = i + 1;
+	// 	});
+	// }).draw();
+	
 });
 
 
@@ -209,6 +210,7 @@ function getMstCreateUserData(){
 			
 			$("#dataTableId > tbody").append(bodyRow)
 		});
+		$('#dataTableId').DataTable();
 	}
 //  	setTableButtonClassDesign();
 //  	$("#dataTableId").DataTable();

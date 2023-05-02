@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
-Build-Jdk-Spec: 17
+Build-Jdk-Spec: 16
 Implementation-Title: PROJECT_SETUP
 Implementation-Version: 0.0.1-SNAPSHOT
-Main-Class: com.ict.mahadev.MahadevApplication
+Main-Class: com.mahadev.MahadevApplication
 Created-By: Maven Integration for Eclipse
 

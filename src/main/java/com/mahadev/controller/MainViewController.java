@@ -41,4 +41,9 @@ public class MainViewController {
 		return new ModelAndView("loadAddBookEntry");
 		
 	}
+	@RequestMapping(value = "loadAddEMIInstallment")
+	public ModelAndView loadAddEMIInstallment(HttpServletRequest request,HttpServletResponse response) {
+		return new ModelAndView("loadAddEMIInstallment");
+		
+	}
 }

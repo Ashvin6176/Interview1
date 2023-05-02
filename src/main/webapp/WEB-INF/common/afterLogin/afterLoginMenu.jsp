@@ -14,21 +14,8 @@
         	<li class="treeview">
          		 <a href="#" onclick="loadCreateUser()"><i class="far fa-circle ion"></i>Create User</a>
          		 <a href="#" onclick="loadAddBookEntry()"><i class="far fa-circle ion"></i>Add Book Entry</a>
+         		 <a href="#" onclick="loadAddEMIInstallment()"><i class="far fa-circle ion"></i>Add EMI Installments</a>
          	</li>
-         	<li class="treeview">
-         		 <a href="#"><i class="fa fa-th"></i><span>Transactions</span><span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span></a>
-		         <ul class="treeview-menu">
-		         	<li><a href="#" onclick="loadUploadWeeklyBaseData()"><i class="far fa-circle ion"></i>Upload Weekly Base Data</a></li>
-		         	<li><a href="#" onclick="loadGenerateBillingData()"><i class="far fa-circle ion"></i>Generate Billing Data</a></li>
-		            <li><a href="#" onclick="loadGenerateSalaryData()"><i class="far fa-circle ion"></i>Generate Salary Data</a></li>
-		         </ul>	
-         	</li>
-         	<li class="treeview">
-         		 <a href="#"><i class="fa fa-th"></i><span>Reports</span><span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span></a>
-		         <ul class="treeview-menu">
-		         	<li><a href="#" onclick="loadPatientwiseDaywiseBillingReport()"><i class="far fa-circle ion"></i>Patientwise Daywise Billing Report</a></li>
-		         </ul>
-		    </li>
     	</ul>    
     </div>
     </section>

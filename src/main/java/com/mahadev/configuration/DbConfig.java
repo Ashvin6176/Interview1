@@ -20,7 +20,7 @@ public class DbConfig
 	    DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.url("jdbc:mysql://localhost:3306/mahadev");
         dataSourceBuilder.username("root");
-        dataSourceBuilder.password("root");
+        dataSourceBuilder.password("ashish");
         
         dataSourceBuilder.driverClassName("com.mysql.cj.jdbc.Driver");
         

@@ -15,4 +15,9 @@ function loadAddBookEntry()
 	document.menuFrom.action="${pageContext.request.contextPath}/main/loadAddBookEntry";
 	document.menuFrom.submit();
 }
+function loadAddEMIInstallment()
+{
+	document.menuFrom.action="${pageContext.request.contextPath}/main/loadAddEMIInstallment";
+	document.menuFrom.submit();
+}
 </script>

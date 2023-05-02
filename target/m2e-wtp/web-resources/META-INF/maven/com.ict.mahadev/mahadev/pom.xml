@@ -15,7 +15,7 @@
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<start-class>com.ict.mahadev.MahadevApplication</start-class>
+		<start-class>com.mahadev.MahadevApplication</start-class>
 	</properties>
 
 
