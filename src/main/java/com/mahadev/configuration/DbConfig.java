@@ -18,9 +18,9 @@ public class DbConfig
 	public DataSource postgreDataSource()
 	{
 	    DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.url("jdbc:mysql://localhost:3306/sys");
+        dataSourceBuilder.url("jdbc:mysql://localhost:3306/mahadev");
         dataSourceBuilder.username("root");
-        dataSourceBuilder.password("ashish");
+        dataSourceBuilder.password("root");
         
         dataSourceBuilder.driverClassName("com.mysql.cj.jdbc.Driver");
         

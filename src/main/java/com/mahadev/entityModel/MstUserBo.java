@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mahadev.common.entityModel.CommonTableFieldBo;
 
 @Entity
-@Table(name="mst_user", schema="sys")
+@Table(name="mst_user", schema="mahadev")
 public class MstUserBo extends CommonTableFieldBo {
 
 	@Id

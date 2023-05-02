@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.persistence.GenerationType;
 
 @Entity
-@Table(name = "mst_login",schema = "sys")
+@Table(name = "mst_login",schema = "mahadev")
 public class LoginBo extends CommonTableFieldBo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

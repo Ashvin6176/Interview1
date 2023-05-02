@@ -12,4 +12,5 @@ public interface MainDao {
 	Map<String, Object> saveMstCreateUser(Map<String, Object> map)throws IOException;
 
 	Map<String, Object> ActivateDeActivateMstUser(Map<String, Object> map);
+	Map<String, Object> saveAddBookEntry(Map<String, Object> map)throws IOException;
 }

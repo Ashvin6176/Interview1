@@ -57,17 +57,23 @@ padding: 5px 15px !important;
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										   Book Name:<input type="text" class="form-control  ValidateInput" id="interest_per" name="interest_per" onchange="validateRegex(this);calInterestAmount();"  onkeyup="validateRegex(this);calInterestAmount();"/> 
+										   Book Name:<input type="text" class="form-control  ValidateInput" id="book_name" name="book_name" onchange="validateRegex(this);"  onkeyup="validateRegex(this);"/> 
 									</div>
 								</div>
 								<div class="col-md-4">
-									 <div class="form-group">
-											Capital Amount:<input type="text" class="form-control  ValidateInput" id="capital_amount" name="capital_amount" onchange="validateRegex(this);calInterestAmount();"  onkeyup="validateRegex(this);calInterestAmount();"/> 
-									 </div>
-								</div> 
+									<div class="form-group">
+										   EMI Start Date:<input type="text" class="form-control  ValidateInput date_class" id="emi_start_date" name="emi_start_date" onchange="validateRegex(this);"  onkeyup="validateRegex(this);"/> 
+									</div>
+							   </div> 
+								
 								
 							</div>	
 							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										   Capital Amount:<input type="text" class="form-control  ValidateInput" id="capital_amount" name="capital_amount" onchange="validateRegex(this);calInterestAmount();"  onkeyup="validateRegex(this);calInterestAmount();"/> 
+									</div>
+							   </div> 
 								<div class="col-md-4">
 									<div class="form-group">
 										   Interest Per (%):<input type="text" class="form-control  ValidateInput" id="interest_per" name="interest_per" onchange="validateRegex(this);calInterestAmount();"  onkeyup="validateRegex(this);calInterestAmount();"/> 
@@ -78,14 +84,15 @@ padding: 5px 15px !important;
 										   Interest Amount:<input type="text" class="form-control  ValidateInput" id="interest_amount" name="interest_amount" onchange=""  onkeyup="validateRegex(this)" readonly/> 
 									</div>
 								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										Daily Instalment Amount:<input type="text" class="form-control  ValidateInput" id="installment_amt" name="installment_amt" onchange=""  onkeyup="validateRegex(this)" readonly/> 
-									</div>
-								</div>
+								
 									
 							</div>	
 							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										Daily Instalment Amount:<input type="text" class="form-control  ValidateInput" id="installment_amt" name="installment_amount" onchange=""  onkeyup="validateRegex(this)" readonly/> 
+									</div>
+								</div>
 								<div class="col-md-4">
 									<div class="form-group">
 										No. Of Instalment:<input type="text" class="form-control  ValidateInput" id="no_of_installment" name="no_of_installment" onchange=""  onkeyup="validateRegex(this)" readonly/> 
@@ -116,15 +123,14 @@ padding: 5px 15px !important;
 				            					<thead>
 				            						<tr>
 				            							<th>SR NO</th>
-				            							<th>Full Name</th>
-				            							<th>Mobile No</th>
-				            							<th>Address</th>
-				            							<th>City</th>
-				            							<th>PinCode</th>
-				            							<th>Capital</th>
-				            							<th>Percentage</th>
-				            							<th>Check</th>
-				            							<th>AdharCard</th>
+														<th>Client Name</th>
+				            							<th>Book Name</th>
+				            							<th>EMI Start Date</th>
+				            							<th>Capital Amount</th>
+				            							<th>Interest Per</th>
+				            							<th>Interest Amount</th>
+				            							<th>Daily Installment Amount</th>
+				            							<th>No Of Installment</th>
 				            							<th class="removeExcelColumn">Action</th>
 				            						</tr>
 				            					</thead>
@@ -159,8 +165,9 @@ $('document').ready(function() {
 	let webData={};
 	fillDropdownCommon("user_id","getAllUser",JSON.stringify(webData));
 	$('#user_id').select2({
-	closeOnSelect: false
+	  closeOnSelect: true
 	});
+	
 	table = $('#dataTableId').DataTable();
 	table.on('order.dt search.dt', function() {
 		table.column(0, {
@@ -170,6 +177,7 @@ $('document').ready(function() {
 			cell.innerHTML = i + 1;
 		});
 	}).draw();
+	getMstCreateUserData();
 });
 
 
@@ -177,7 +185,7 @@ function getMstCreateUserData(){
 	$('#dataTableId').DataTable().destroy();
 	$("#dataTableId > tbody").empty();
 	 var mstTableData = {};
-	 var mstTableDataUrl='${pageContext.request.contextPath}/ajax/getWebServicesData?serviceName=getRegisterUser&serviceType=MASTER';
+	 var mstTableDataUrl='${pageContext.request.contextPath}/ajax/getWebServicesData?serviceName=getAllBookEntry&serviceType=MASTER';
 	 var mstTableDataMap=genericAjaxCallForJsonWithLoader(mstTableDataUrl,JSON.stringify(mstTableData),"loader");
 	 var mstTableDataStatus=mstTableDataMap.get("serviceStatus");
 	 var mstTableDataCnt=mstTableDataMap.get("serviceResponse"); 
@@ -187,19 +195,16 @@ function getMstCreateUserData(){
 		{	
 			var bodyRow=$("<tr/>");
 			bodyRow.append( $("<td/>").addClass("text-center").append(index+1) );
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].full_name));	
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].mobile_no));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].address));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].city));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].pincode));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].capital));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].percentage));
-			let viewBtn=$("<button/>").addClass("btn btn-success label label-edit m-1 defaultPrivilege editButtonClassDesign removeExcelColumn").attr("type", "button").attr("onclick","getDocBytes('"+mstTableDataCnt[index].user_id+"','check')").append("View");
-			let viewBtn1=$("<button/>").addClass("btn btn-success label label-edit m-1 defaultPrivilege editButtonClassDesign removeExcelColumn").attr("type", "button").attr("onclick","getDocBytes('"+mstTableDataCnt[index].user_id+"','adhar')").append("View");
-			//bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].check_img));
-			//bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].adharcard));
-			bodyRow.append( $("<td/>").addClass("text-center").append(viewBtn));
-			bodyRow.append( $("<td/>").addClass("text-center").append(viewBtn1));
+
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].user_id));	
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].book_name));	
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].emi_start_date));
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].capital_amount));
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].interest_per));
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].interest_amount));
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].installment_amount));
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].no_of_installment));
+			
 			var button=$("<button/>").addClass("btn btn-success label label-edit m-1 defaultPrivilege editButtonClassDesign removeExcelColumn").attr("type", "button").attr("onclick","BindDataForUpdat('"+mstTableDataCnt[index].user_id+"')");
 			var bi=$("<i/>").addClass("fas fa-pencil-alt mr-1");			
 			
@@ -237,12 +242,12 @@ function saveMstCreateUser()
  							buttons : confirmCancelButton,
  							callback : function(result) {
  								if (result) {
- 										var serviceURL = '${pageContext.request.contextPath}/mainAjax/saveMstCreateUser/'+user_id;
- 	 	 								// var serviceData = $("#CreateUserFormId").serialize();
-										var form=$("#CreateUserFormId");
-						                var serviceData = new FormData(form[0]);
-										console.log(serviceData);
- 										var map = saveFormApplicationWithMultiPart(serviceURL,serviceData, 'loader', 'CreateUserFormId');
+ 										var serviceURL = '${pageContext.request.contextPath}/mainAjax/saveAddBookEntry/'+user_id;
+ 	 	 								var serviceData = $("#CreateUserFormId").serialize();
+										//svar form=$("#CreateUserFormId");
+						                //var serviceData = new FormData(form[0]);
+										//console.log(serviceData);
+ 										var map = saveFormApplication(serviceURL,serviceData, 'loader', 'CreateUserFormId');
  										var serviceStatus = map.get("serviceStatus");
  										var res = map.get("serviceResponse");
  										if (serviceStatus === 1) {

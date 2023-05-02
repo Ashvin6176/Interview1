@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mahadev.common.entityModel.WebResponseJsonBo;
 import com.mahadev.constant.Constants;
 import com.mahadev.constant.UrlConstatnt;
+import com.mahadev.entityModel.MstBookEntryBo;
 import com.mahadev.entityModel.MstUserBo;
 import com.mahadev.service.MainService;
 import com.utils.CommonUtility;
@@ -93,6 +94,19 @@ public class MainController {
 		bo.setLstUpdUser(crtUser);
 		map.put("webBo", bo);
 		WebResponseJsonBo obj = mainService.ActivateDeActivateMstUser(map);
+		return ResponseEntity.ok(obj);
+	}
+	// Add book entry
+	@PostMapping(value = UrlConstatnt.saveAddBookEntry)
+	public ResponseEntity<WebResponseJsonBo> saveAddBookEntry(@RequestBody @ModelAttribute MstBookEntryBo bo,@PathVariable("crtUser") String crtUser, @Context HttpServletRequest req,
+			HttpServletResponse res) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		bo.setCrtDate(new Date());
+		bo.setCrtIp(CommonUtility.getIp(req));
+		bo.setCrtUser(crtUser);
+		bo.setStatus(Constants.Active);
+		map.put("webBo", bo);
+		WebResponseJsonBo obj = mainService.saveAddBookEntry(map);
 		return ResponseEntity.ok(obj);
 	}
 }

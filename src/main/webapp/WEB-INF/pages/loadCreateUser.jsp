@@ -74,16 +74,6 @@ padding: 5px 15px !important;
 									</div>
 									<div class="col-md-6">
 									 <div class="form-group">
-											Capital:<input type="text" class="form-control  ValidateInput  " id="capital" name="capital"  onkeyup="validateRegex(this)"/> 
-									 </div>
-									</div>
-									<div class="col-md-6">
-									 <div class="form-group">
-											Percentage:<input type="text" class="form-control  ValidateInput  " id="percentage" name="percentage"  onkeyup="validateRegex(this)"/> 
-									 </div>
-									</div>
-									<div class="col-md-6">
-									 <div class="form-group">
 											Check:<input type="file" class="form-control  ValidateInput  " id="check" name="check_temp"  onkeyup="validateRegex(this)"/> 
 									 </div>
 									</div>
@@ -123,8 +113,6 @@ padding: 5px 15px !important;
 				            							<th>Address</th>
 				            							<th>City</th>
 				            							<th>PinCode</th>
-				            							<th>Capital</th>
-				            							<th>Percentage</th>
 				            							<th>Check</th>
 				            							<th>AdharCard</th>
 				            							<th class="removeExcelColumn">Action</th>
@@ -195,8 +183,7 @@ function getMstCreateUserData(){
 			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].address));
 			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].city));
 			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].pincode));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].capital));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].percentage));
+	
 			let viewBtn=$("<button/>").addClass("btn btn-success label label-edit m-1 defaultPrivilege editButtonClassDesign removeExcelColumn").attr("type", "button").attr("onclick","getDocBytes('"+mstTableDataCnt[index].user_id+"','check')").append("View");
 			let viewBtn1=$("<button/>").addClass("btn btn-success label label-edit m-1 defaultPrivilege editButtonClassDesign removeExcelColumn").attr("type", "button").attr("onclick","getDocBytes('"+mstTableDataCnt[index].user_id+"','adhar')").append("View");
 			//bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].check_img));
@@ -260,7 +247,7 @@ function saveMstCreateUser()
 
 function BindDataForUpdat(user_id){
 	var webData = {'user_id' : user_id};
-	var webDataUrl = '${pageContext.request.contextPath}/ajax/getUserManagementWebService?serviceName=getBeneficiaryTypeMasterDataById&serviceType=MASTER';
+	var webDataUrl = '${pageContext.request.contextPath}/ajax/getWebServicesData?serviceName=getMahadevTypeMasterDataById&serviceType=MASTER';
 	var webDataMap = genericAjaxCallForJsonWithLoader(webDataUrl, JSON.stringify(webData), "loader");
 	var webDataStatus = webDataMap.get("serviceStatus");
 	var webDataCnt = webDataMap.get("serviceResponse"); 
@@ -274,8 +261,6 @@ function BindDataForUpdat(user_id){
 			$("#address").val(webDataCnt[index].address);
 			$("#city").val(webDataCnt[index].city);
 			$("#pincode").val(webDataCnt[index].pincode);
-			$("#capital").val(webDataCnt[index].capital);
-			$("#percentage").val(webDataCnt[index].percentage);
 			$("#check").val(webDataCnt[index].check);
 			$("#adharcard").val(webDataCnt[index].adharcard);
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mahadev.constant.Constants;
+import com.mahadev.entityModel.MstBookEntryBo;
 import com.mahadev.entityModel.MstUserBo;
 import com.mahadev.repo.AllMainRepository;
 import com.utils.CommonUtility;
@@ -68,5 +69,16 @@ public Map<String, Object> updateMstUser(Map<String, Object> map) {
 		returnMap.put("bo", bo);
 		return returnMap;
 	}	
+}
+
+@Override
+public Map<String, Object> saveAddBookEntry(Map<String, Object> map) throws IOException {
+	Map<String, Object> returnMap=new HashMap<>();
+	MstBookEntryBo bo=(MstBookEntryBo)map.get("webBo");
+	
+	bo=allMainRepository.getMstBookEntryRepo().save(bo);
+	returnMap.put("returnMsg", Constants.MSG_SUCCESS);
+	returnMap.put("bo", bo);		
+	return returnMap;
 }
 }
