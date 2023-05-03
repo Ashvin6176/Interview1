@@ -9,7 +9,7 @@
 <style type="text/css">
     fieldset{
 	padding: 30px;
-    border: 1px solid #ff7468 !important;
+    border: 1px solid #380ab8 !important;
     background:#f6f8ff !important;
     border-radius: 25px;
     border-width: thin;
@@ -78,17 +78,37 @@ padding: 5px 15px !important;
 									</div>
 								</div>
 								
-								
-								
 							</div>	
+							<div class="row">
+								<div class="col-md-4"> 
+									<div class="form-group">
+										Payment Date:<input type="text" class="form-control  ValidateInput date_class" id="payment_date" name="payment_date" onchange=""  onkeyup="validateRegex(this)"/> 
+									</div>
+								</div>
+								<div class="col-md-4"> 
+									<div class="form-group">
+									  Payment Amount  :<input type="text" class="form-control  ValidateInput" id="payment_amount" name="payment_amount" onchange=""  onkeyup="validateRegex(this)"/> 
+									</div>
+								</div>
+								
+							</div>
+							<div class="row">
+								<div class="col-md-12 text-center">
+								  <div class="form-group">
+									<button type="button" class="btn btn-save btn-sm savePrivilege saveButtonClassDesign" value="" onclick="saveMstCreateUser()" id="saveBtn">SAVE</button>
+									<button type="button" class="btn btn-update btn-sm updatePrivilege updateButtonClassDesign" value="" onclick="updateMstUser()" id="updateBtn">UPDATE</button>
+									<button type="button" class="btn btn-reset btn-sm defaultPrivilege resetButtonClassDesign" value="" id="resetButtonId" onclick="resetFormWithCallbackMethod('CreateUserFormId',resetData);">RESET</button>						              
+								  </div>
+								</div>
+						   </div>
                             <fieldset>
                                 <legend>Book Details</legend>
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                               EMI Start Date:<input type="text" class="form-control  ValidateInput" id="emi_start_date" name="emi_start_date" onchange="validateRegex(this);"  onkeyup="validateRegex(this);" readonly/> 
-                                        </div>
-                                   </div> 
+									<div class="col-md-4">
+										<div class="form-group">
+											   EMI Start Date:<input type="text" class="form-control  ValidateInput" id="emi_start_date" name="emi_start_date" onchange="validateRegex(this);"  onkeyup="validateRegex(this);" readonly/> 
+										</div>
+								   </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                                Capital Amount:<input type="text" class="form-control  ValidateInput" id="capital_amount" name="capital_amount" onchange="validateRegex(this);calInterestAmount();"  onkeyup="validateRegex(this);calInterestAmount();" readonly/> 
@@ -141,16 +161,6 @@ padding: 5px 15px !important;
                                 </div>
                             </fieldset>
 																       
-					           <div class="row">
-						            <div class="col-md-12 text-center">
-						              <div class="form-group">
-						                <button type="button" class="btn btn-save btn-sm savePrivilege saveButtonClassDesign" value="" onclick="saveMstCreateUser()" id="saveBtn">SAVE</button>
-						                <button type="button" class="btn btn-update btn-sm updatePrivilege updateButtonClassDesign" value="" onclick="updateMstUser()" id="updateBtn">UPDATE</button>
-						                <button type="button" class="btn btn-reset btn-sm defaultPrivilege resetButtonClassDesign" value="" id="resetButtonId" onclick="resetFormWithCallbackMethod('CreateUserFormId',resetData);">RESET</button>						              
-						              </div>
-						            </div>
-					           </div>
-					        
 					         	<jsp:include page="../common/commonExportExcelPdf.jsp">
 					         		<jsp:param value="dataTableId" name="table"/>
 					         		<jsp:param value="Create User List" name="name"/>
@@ -203,6 +213,8 @@ padding: 5px 15px !important;
 <script>
 var table;
 var user_id='${sessionScope.user_id}';
+var remainingAmount=0;
+var InstallmentAmount=0;
 $('document').ready(function() {
 	let webData={};
 	fillDropdownCommon("user_id","getAllUser",JSON.stringify(webData));
