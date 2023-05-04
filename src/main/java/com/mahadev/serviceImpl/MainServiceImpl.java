@@ -142,4 +142,23 @@ public class MainServiceImpl implements MainService {
 			return obj;
 		}
 	}
+	@Override
+	public WebResponseJsonBo saveAddInstallment(Map<String, Object> map) throws IOException {
+		WebResponseJsonBo obj=new WebResponseJsonBo();
+		Map<String, Object> returnMap = mainDao.saveAddInstallment(map);
+		String msg=(String)returnMap.get("returnMsg");
+		
+		if(!StringUtils.isBlank(msg) && msg.equals(Constants.MSG_SUCCESS)) {
+			obj.setMessage_description("Installment Added Sucessfully.");
+			obj.setStatus(Constants.SUCCESS_CODE);
+			obj.setValidated(true);
+			return obj;
+		}
+		else {
+			obj.setReturn_message("Something went wrong..!");
+			obj.setStatus(Constants.ERROR_CODE);
+			obj.setValidated(false);
+			return obj;
+		}
+	}
 }

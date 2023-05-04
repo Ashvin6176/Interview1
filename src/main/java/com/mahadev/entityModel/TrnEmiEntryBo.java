@@ -19,7 +19,7 @@ public class TrnEmiEntryBo extends CommonTableFieldBo{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="EMI_ENTRY_ID") private Long emi_entry_id;
 	@Column(name="USER_ID") private int user_id;
-	@Column(name="BOOK_ID") private int book_id;
+	@Column(name="BOOK_ID") private Long book_id;
 	@Column(name="PAYMENT_AMOUNT") private BigDecimal payment_amount;
 	@Column(name="PAYMENT_DATE") private Date payment_date;
 	public Long getEmi_entry_id() {
@@ -34,10 +34,10 @@ public class TrnEmiEntryBo extends CommonTableFieldBo{
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
-	public int getBook_id() {
+	public Long getBook_id() {
 		return book_id;
 	}
-	public void setBook_id(int book_id) {
+	public void setBook_id(Long book_id) {
 		this.book_id = book_id;
 	}
 	public BigDecimal getPayment_amount() {

@@ -98,6 +98,11 @@ padding: 5px 15px !important;
 										No. Of Instalment:<input type="text" class="form-control  ValidateInput" id="no_of_installment" name="no_of_installment" onchange=""  onkeyup="validateRegex(this)" readonly/> 
 									</div>
 								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										Advance Payment:<input type="text" class="form-control  ValidateInput" id="advance_payment" name="advance_payment" onchange=""  onkeyup="validateRegex(this)"/> 
+									</div>
+								</div>
 							</div>										       
 					           <div class="row">
 						            <div class="col-md-12 text-center">

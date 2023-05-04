@@ -34,6 +34,7 @@ import com.mahadev.constant.Constants;
 import com.mahadev.constant.UrlConstatnt;
 import com.mahadev.entityModel.MstBookEntryBo;
 import com.mahadev.entityModel.MstUserBo;
+import com.mahadev.entityModel.TrnEmiEntryBo;
 import com.mahadev.service.MainService;
 import com.utils.CommonUtility;
 
@@ -107,6 +108,18 @@ public class MainController {
 		bo.setStatus(Constants.Active);
 		map.put("webBo", bo);
 		WebResponseJsonBo obj = mainService.saveAddBookEntry(map);
+		return ResponseEntity.ok(obj);
+	}
+	@PostMapping(value = UrlConstatnt.saveAddInstallment)
+	public ResponseEntity<WebResponseJsonBo> saveAddInstallment(@RequestBody @ModelAttribute TrnEmiEntryBo bo,@PathVariable("crtUser") String crtUser, @Context HttpServletRequest req,
+			HttpServletResponse res) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		bo.setCrtDate(new Date());
+		bo.setCrtIp(CommonUtility.getIp(req));
+		bo.setCrtUser(crtUser);
+		bo.setStatus(Constants.Active);
+		map.put("webBo", bo);
+		WebResponseJsonBo obj = mainService.saveAddInstallment(map);
 		return ResponseEntity.ok(obj);
 	}
 }

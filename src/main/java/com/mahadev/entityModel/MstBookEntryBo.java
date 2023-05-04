@@ -37,7 +37,9 @@ public class MstBookEntryBo extends CommonTableFieldBo {
 	private BigDecimal no_of_installment;
 	@Column(name = "IS_CLOSED")
 	private String is_closed;
-
+	@Column(name = "ADVANCE_PAYMENT")
+	private BigDecimal advance_payment;
+	
 	public Long getBook_id() {
 		return book_id;
 	}
@@ -116,5 +118,13 @@ public class MstBookEntryBo extends CommonTableFieldBo {
 
 	public void setIs_closed(String is_closed) {
 		this.is_closed = is_closed;
+	}
+
+	public BigDecimal getAdvance_payment() {
+		return advance_payment;
+	}
+
+	public void setAdvance_payment(BigDecimal advance_payment) {
+		this.advance_payment = advance_payment;
 	}
 }

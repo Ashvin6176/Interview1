@@ -18,6 +18,7 @@ public class AllMainRepository {
     private MstBookEntryRepo mstBookEntryRepo;
 	@Autowired
 	private TrnEmiEntryRepo trnEmiEntryRepo;
+	@Autowired DtlEmiEntryRepo dtlEmiEntryRepo;
 	
 	public MstUserBo saveMstCreateUser(MstUserBo bo) {
 		return mstUserRepo.save(bo);
@@ -38,5 +39,8 @@ public class AllMainRepository {
 	}
 	public TrnEmiEntryRepo getTrnEmiEntryRepo() {
 		 return trnEmiEntryRepo;
+	}
+	public DtlEmiEntryRepo getDtlEmiEntryRepo() {
+		 return dtlEmiEntryRepo;
 	}
 }
