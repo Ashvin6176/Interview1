@@ -27,8 +27,8 @@ padding: 5px 15px !important;
       <div class="row">
         <div class="col-12">
           <div class="box box-default">
-            <div class="box-header with-border">
-            
+            <div class="box-header with-border text-center">
+				<b><h3>User Registration</h3></b>
 										
             </div>
             <!-- /.box-header -->

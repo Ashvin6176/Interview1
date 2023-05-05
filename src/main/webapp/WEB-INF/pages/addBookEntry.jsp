@@ -27,9 +27,9 @@ padding: 5px 15px !important;
       <div class="row">
         <div class="col-12">
           <div class="box box-default">
-            <div class="box-header with-border">
+            <div class="box-header with-border text-center">
             
-										
+				<b><h3>User Book Entry</h3></b>						
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -136,6 +136,7 @@ padding: 5px 15px !important;
 				            							<th>Interest Amount</th>
 				            							<th>Daily Installment Amount</th>
 				            							<th>No Of Installment</th>
+														<th>Advance Payment</th>
 				            							<th class="removeExcelColumn">Action</th>
 				            						</tr>
 				            					</thead>
@@ -221,6 +222,7 @@ function getMstCreateUserData(){
 			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].interest_amount));
 			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].installment_amount));
 			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].no_of_installment));
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].advance_payment));
 			
 			var button=$("<button/>").addClass("btn btn-success label label-edit m-1 defaultPrivilege editButtonClassDesign removeExcelColumn").attr("type", "button").attr("onclick","BindDataForUpdat('"+mstTableDataCnt[index].user_id+"')");
 			var bi=$("<i/>").addClass("fas fa-pencil-alt mr-1");			
