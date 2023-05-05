@@ -100,7 +100,7 @@ padding: 5px 15px !important;
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										Advance Payment:<input type="text" class="form-control  ValidateInput" id="advance_payment" name="advance_payment" onchange=""  onkeyup="validateRegex(this)"/> 
+										Advance Payment:<input type="text" class="form-control  ValidateInput" id="advance_payment" name="advance_payment" onchange="checkPaymentAmt();"  onkeyup="validateRegex(this)"/> 
 									</div>
 								</div>
 							</div>										       
@@ -252,7 +252,8 @@ function saveMstCreateUser()
 { 	
 	var flag=true;
  	flag=formValidate("validateDivId");
- 	if(flag)
+	let pay_flag=checkPaymentAmt();
+ 	if(flag && pay_flag)
  		{
  		    bootbox.confirm({
  		    title:'<%=Constants.PROJECT_TITLE%>',
@@ -394,6 +395,24 @@ function calInterestAmount() {
 
 	let no_of_installment=(Number(cp_amount)/Number(emi_amt)).toFixed(0);
 	$("#no_of_installment").val(no_of_installment);
+}
+function checkPaymentAmt() {
+	let flag=false;
+	let instAmount=$("#installment_amt").val();
+	let payment_amount=$("#advance_payment").val();
+	if(payment_amount=='' || isNaN(payment_amount)){
+		payment_amount=0;
+	}
+
+	if (Number(payment_amount)%Number(instAmount) == 0) {
+		flag=true;
+	}else{
+		toastr.info("Invalid Payment Amount","INFO",{
+			closeButton:true,
+			autohide:false
+		});
+	}
+   return flag;
 }
 </script>
 

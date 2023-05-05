@@ -109,6 +109,8 @@ public Map<String, Object> saveAddBookEntry(Map<String, Object> map) throws IOEx
 		dtlEmiEntryBo.setEmi_entry_id(trnEmiEntryBo.getEmi_entry_id());
 		dtlEmiEntryBo.setInstallment_amount(bo.getInstallment_amount());
 		dtlEmiEntryBo.setInstallment_date(cal.getTime());
+		dtlEmiEntryBo.setUser_id(bo.getUser_id());
+		dtlEmiEntryBo.setBook_id(bo.getBook_id());
 		dtlEmiEntryBo.setStatus("1");
 		dtlEmiEntryBo.setCrtDate(new Date());
 		dtlEmiEntryBo.setCrtUser(bo.getCrtUser());
@@ -147,13 +149,13 @@ public Map<String, Object> saveAddInstallment(Map<String, Object> map) throws IO
 					dtlEmiEntryBo.setUser_id(bookBo.getUser_id());
 					dtlEmiEntryBo.setInstallment_amount(bookBo.getInstallment_amount());
 					
-					
 					do {
 						oldEmi=allMainRepository.getDtlEmiEntryRepo().getBookEmiBydate(bo.getUser_id(), bookBo.getBook_id(), cal.getTime());
 						cal.set(Calendar.DATE, 1);
 					} while (oldEmi!=null);
 					
 					dtlEmiEntryBo.setInstallment_date(cal.getTime());
+					dtlEmiEntryBo.setStatus("1");
 					dtlEmiEntryBo.setCrtDate(new Date());
 					dtlEmiEntryBo.setCrtUser(bo.getCrtUser());
 					dtlEmiEntryBo.setCrtIp(bo.getCrtIp());

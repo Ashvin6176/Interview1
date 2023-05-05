@@ -87,7 +87,7 @@ padding: 5px 15px !important;
 								</div>
 								<div class="col-md-4"> 
 									<div class="form-group">
-									  Payment Amount  :<input type="text" class="form-control  ValidateInput" id="payment_amount" name="payment_amount" onchange=""  onkeyup="validateRegex(this)"/> 
+									  Payment Amount  :<input type="text" class="form-control  ValidateInput" id="payment_amount" name="payment_amount" onchange="checkPaymentAmt();"  onkeyup="validateRegex(this)"/> 
 									</div>
 								</div>
 								
@@ -155,7 +155,7 @@ padding: 5px 15px !important;
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            EMI Remaining Amount:<input type="text" class="form-control  ValidateInput" id="paid_amount" name="paid_amount" onchange=""  onkeyup="validateRegex(this)" readonly/> 
+                                            EMI Remaining Amount:<input type="text" class="form-control  ValidateInput" id="remaining_amount" name="remaining_amount" onchange=""  onkeyup="validateRegex(this)" readonly/> 
                                         </div>
                                     </div>
                                 </div>
@@ -248,8 +248,12 @@ function getBookDetails(book_id) {
         $("#capital_amount").val(mstTableDataCnt[0].capital_amount);
         $("#interest_per").val(mstTableDataCnt[0].interest_per);
         $("#interest_amount").val(mstTableDataCnt[0].interest_amount);
-        $("#installment_amt").val(mstTableDataCnt[0].installment_amt);
+        $("#installment_amt").val(mstTableDataCnt[0].installment_amount);
+		InstallmentAmount=mstTableDataCnt[0].installment_amount;
         $("#no_of_installment").val(mstTableDataCnt[0].no_of_installment);
+		$("#no_of_paid_installment").val(mstTableDataCnt[0].no_of_paid_inst);
+		$("#paid_amount").val(mstTableDataCnt[0].payment_amount);
+		$("#remaining_amount").val(Number(mstTableDataCnt[0].capital_amount)-Number(mstTableDataCnt[0].payment_amount));
      }
 }
 function getMstCreateUserData(){
@@ -318,7 +322,8 @@ function saveMstCreateUser()
 { 	
 	var flag=true;
  	flag=formValidate("validateDivId");
- 	if(flag)
+	let pay_flag=checkPaymentAmt();
+ 	if(flag && pay_flag)
  		{
  		    bootbox.confirm({
  		    title:'<%=Constants.PROJECT_TITLE%>',
@@ -326,7 +331,7 @@ function saveMstCreateUser()
  							buttons : confirmCancelButton,
  							callback : function(result) {
  								if (result) {
- 										var serviceURL = '${pageContext.request.contextPath}/mainAjax/saveAddBookEntry/'+user_id;
+ 										var serviceURL = '${pageContext.request.contextPath}/mainAjax/saveAddInstallment/'+user_id;
  	 	 								var serviceData = $("#CreateUserFormId").serialize();
 										//svar form=$("#CreateUserFormId");
 						                //var serviceData = new FormData(form[0]);
@@ -460,6 +465,24 @@ function calInterestAmount() {
 
 	let no_of_installment=(Number(cp_amount)/Number(emi_amt)).toFixed(0);
 	$("#no_of_installment").val(no_of_installment);
+}
+function checkPaymentAmt() {
+	let flag=false;
+	let instAmount=InstallmentAmount;
+	let payment_amount=$("#payment_amount").val();
+	if(payment_amount=='' || isNaN(payment_amount)){
+		payment_amount=0;
+	}
+
+	if (Number(payment_amount)%Number(instAmount) == 0) {
+		flag=true;
+	}else{
+		toastr.info("Invalid Payment Amount","INFO",{
+			closeButton:true,
+			autohide:false
+		});
+	}
+   return flag;
 }
 </script>
 
