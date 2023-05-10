@@ -1719,3 +1719,131 @@ function viewDocument1(file_bytes,extension){
 openViewUploadedDocumentModel();
 					
 } 
+function genericAjaxCallWithCallback(serviceURL,ServiceData,isAsync,loader,fnCallback)
+{
+	let loader_id="";
+	var map=new Map();
+	map.set("serviceStatus",0);
+	map.set("serviceResponse",null);
+	try
+	{
+
+			$.ajax({
+				type : "POST",
+				data :  ServiceData,
+				url : serviceURL,
+				headers: {
+	                    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+	                 },
+				contentType: "application/json; charset=utf-8",
+				async : isAsync,
+				beforeSend: function() {
+					loader != null ? $(loader).css("display","block") : '';
+				},
+				success : function(res) 
+				{
+					
+					if(res !=null)
+					{
+							if(res.status === 996)
+							{
+								if(refreshToken())
+								{
+								 	 map.set("serviceStatus",1);
+									 genericAjaxCallWithCallback(serviceURL,ServiceData,isAsync,loader,fnCallback);
+								}
+							}
+							if(res.status === 998)
+							{
+								 $.each(res.error_message,function(key,value)
+									 {
+										sessionOut(value);
+									  });
+									  return;
+							}	
+							if(res.status === 999)
+							{
+								
+								 $.each(res.error_message,function(key,value){
+									 	toastr.error(value,"ERROR",{
+		  									closeButton:true
+		   	                			});
+									
+								   });
+								   return;
+							}
+							else if(res.status === 1000)
+							{
+								
+								var r=JSON.parse(res.responseData);
+								map.set("serviceResponse",r);
+								if(res.proc_status === 'FALSE')
+								{
+									map.set("serviceStatus",0);
+									//openToastMessage("Error Message",r.P_OUT[0].ERROR_MSG+"="+serviceURL.split("=")[1],"error");
+									
+									/*toastr.error(r.P_OUT[0].ERROR_MSG+"="+serviceURL.split("=")[1],"ERROR",{
+		  									closeButton:true
+		   	                			});*/
+		   	                			toastr.error(r[0].error_msg,"ERROR",{
+		  									closeButton:true
+		   	                			});
+									return;
+								}
+								else
+								{
+									map.set("serviceStatus",1);
+								}
+								if(fnCallback != null){
+									fnCallback(map);
+								}
+							}
+							else
+							{
+								$.each(res.error_message,function(key,value){
+									toastr.error(value,"ERROR",{
+										closeButton:true
+									});
+								});
+								return;
+							}
+					}
+				},
+				complete: function() {
+					loader != null ? $(loader).css("display","none") : '';
+				},
+				error : function(xhr, status, errorThrown) {
+					$("#"+loaderId).css("display","none");
+					map.set("serviceStatus",0);
+					if (xhr.status === 0) {
+						map.set("serviceResponse","Not connect.\n Verify Network.");
+				    } else if (xhr.status == 404) {
+				    	map.set("serviceResponse","Requested page not found. [404]");
+				    } else if (xhr.status == 500) {
+				    	map.set("serviceResponse","Internal Server Error [500].");
+				    } else if (exception === 'parsererror') {
+				    	map.set("serviceResponse","Requested JSON parse failed.");
+				    } else if (exception === 'timeout') {
+				    	map.set("serviceResponse","Time out error.");
+				    } else if (exception === 'abort') {
+				    	map.set("serviceResponse","Ajax request aborted.");
+				    } else {
+				    	map.set("serviceResponse","Uncaught Error.\n'" + xhr.responseText);
+				    }
+//					map.set("serviceResponse",jqXHR.statusText);
+					
+					
+				}, 
+			
+			});
+	}
+	catch(e)
+	{
+	
+		map.set("serviceStatus",0);
+		map.set("serviceResponse",e.message);
+	}
+	if(fnCallback == null){
+		return map;
+	}
+}

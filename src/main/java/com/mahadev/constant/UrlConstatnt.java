@@ -7,4 +7,6 @@ public class UrlConstatnt {
 	 
 	 public final static String saveAddBookEntry="saveAddBookEntry/{crtUser}";
 	 public final static String saveAddInstallment="saveAddInstallment/{crtUser}";
+	 public final static String deleteInstallment="deleteInstallment/{crtUser}";
+	 public final static String saveOfficeTransaction="saveOfficeTransaction/{crtUser}";
 }

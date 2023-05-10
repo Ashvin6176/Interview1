@@ -46,4 +46,9 @@ public class MainViewController {
 		return new ModelAndView("loadAddEMIInstallment");
 		
 	}
+	@RequestMapping(value = "loadMyOffice")
+	public ModelAndView loadMyOffice(HttpServletRequest request,HttpServletResponse response) {
+		return new ModelAndView("loadMyOffice");
+		
+	}
 }

@@ -16,9 +16,11 @@ import org.springframework.stereotype.Component;
 import com.mahadev.constant.Constants;
 import com.mahadev.entityModel.DtlEmiEntryBo;
 import com.mahadev.entityModel.MstBookEntryBo;
+import com.mahadev.entityModel.MstOfficeBo;
 import com.mahadev.entityModel.MstUserBo;
 import com.mahadev.entityModel.TrnEmiEntryBo;
 import com.mahadev.repo.AllMainRepository;
+import com.mahadev.repo.MstOfficeRepo;
 import com.utils.CommonUtility;
 @Component
 public class MainDaoImpl implements MainDao{
@@ -151,7 +153,9 @@ public Map<String, Object> saveAddInstallment(Map<String, Object> map) throws IO
 					
 					do {
 						oldEmi=allMainRepository.getDtlEmiEntryRepo().getBookEmiBydate(bo.getUser_id(), bookBo.getBook_id(), cal.getTime());
-						cal.set(Calendar.DATE, 1);
+						if(oldEmi !=null) {
+							cal.add(Calendar.DATE, 1);
+						}
 					} while (oldEmi!=null);
 					
 					dtlEmiEntryBo.setInstallment_date(cal.getTime());
@@ -163,8 +167,14 @@ public Map<String, Object> saveAddInstallment(Map<String, Object> map) throws IO
 					
 					allMainRepository.getDtlEmiEntryRepo().save(dtlEmiEntryBo);
 					
-					cal.set(Calendar.DATE, 1);
+					cal.add(Calendar.DATE, 1);
 			}	
+			
+			int instCnt=allMainRepository.getDtlEmiEntryRepo().getCountOfInstallment(bookBo.getUser_id(), bookBo.getBook_id());
+			if(instCnt == bookBo.getNo_of_installment().intValue()) {
+				bookBo.setIs_closed("Y");
+				allMainRepository.getMstBookEntryRepo().save(bookBo);
+			}
 			returnMap.put("returnMsg", Constants.MSG_SUCCESS);
 			returnMap.put("bo", bo);		
 			return returnMap;
@@ -174,4 +184,33 @@ public Map<String, Object> saveAddInstallment(Map<String, Object> map) throws IO
 	
 	return returnMap;
    }
+
+@Override
+ public Map<String, Object> deleteInstallment(Map<String, Object> map)throws IOException{
+	TrnEmiEntryBo trnEmiEntryBo=(TrnEmiEntryBo) map.get("webBo");
+	
+	if(trnEmiEntryBo.getEmi_entry_id() > 0) {
+		
+		allMainRepository.getTrnEmiEntryRepo().updateTrnEMIEntry(trnEmiEntryBo.getEmi_entry_id(),trnEmiEntryBo.getCrtUser(),trnEmiEntryBo.getCrtIp());
+		allMainRepository.getDtlEmiEntryRepo().updateDtlEMIEntry(trnEmiEntryBo.getEmi_entry_id(),trnEmiEntryBo.getCrtUser(),trnEmiEntryBo.getCrtIp());
+		
+		TrnEmiEntryBo trnEmiEntry=allMainRepository.getTrnEmiEntryRepo().getOne(trnEmiEntryBo.getEmi_entry_id());
+		
+		MstBookEntryBo bookEntryBo=allMainRepository.getMstBookEntryRepo().getOne(trnEmiEntry.getBook_id());
+		bookEntryBo.setIs_closed("N");
+		allMainRepository.getMstBookEntryRepo().save(bookEntryBo);
+		map.put("returnMsg", Constants.MSG_SUCCESS);
+		
+	}
+	
+	return map;
+ }
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public Map<String, Object> saveOfficeTransaction(Map<String, Object> map)throws IOException{
+		MstOfficeBo office_bo=(MstOfficeBo) map.get("webBo");
+		allMainRepository.getMstOfficeRepo().save(office_bo);
+		map.put("returnMsg", Constants.MSG_SUCCESS);
+		return map;
+	}
 }

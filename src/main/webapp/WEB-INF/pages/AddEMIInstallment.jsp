@@ -31,6 +31,7 @@ padding: 5px 15px !important;
 }
 </style>
 <form:form name="CreateUserForm" method="post" id="CreateUserFormId" >
+	<input type="hidden" name="emi_entry_id" id="emi_entry_id">
 <div class="wrapper">
   <!-- Left side column. contains the logo and sidebar -->
   <!-- Content Wrapper. Contains page content -->
@@ -96,9 +97,7 @@ padding: 5px 15px !important;
 								<div class="col-md-12 text-center">
 								  <div class="form-group">
 									<button type="button" class="btn btn-save btn-sm savePrivilege saveButtonClassDesign" value="" onclick="saveMstCreateUser()" id="saveBtn">SAVE</button>
-									<button type="button" class="btn btn-update btn-sm updatePrivilege updateButtonClassDesign" value="" onclick="updateMstUser()" id="updateBtn">UPDATE</button>
-									<button type="button" class="btn btn-reset btn-sm defaultPrivilege resetButtonClassDesign" value="" id="resetButtonId" onclick="resetFormWithCallbackMethod('CreateUserFormId',resetData);">RESET</button>						              
-								  </div>
+									 </div>
 								</div>
 						   </div>
                             <fieldset>
@@ -177,12 +176,9 @@ padding: 5px 15px !important;
 				            							<th>SR NO</th>
 														<th>Client Name</th>
 				            							<th>Book Name</th>
-				            							<th>EMI Start Date</th>
-				            							<th>Capital Amount</th>
-				            							<th>Interest Per</th>
-				            							<th>Interest Amount</th>
-				            							<th>Daily Installment Amount</th>
-				            							<th>No Of Installment</th>
+				            							<th>Payment Date</th>
+				            							<th>Payment Amount</th>
+				            							<th>No of Installment Paid</th>
 				            							<th class="removeExcelColumn">Action</th>
 				            						</tr>
 				            					</thead>
@@ -231,36 +227,17 @@ $('document').ready(function() {
 			cell.innerHTML = i + 1;
 		});
 	}).draw();
-	//getMstCreateUserData();
+	getMstCreateUserData();
 });
 function loadRunnigBook(user_id) {
     let webData={"user_id":user_id};
     fillDropdownCommon("book_id","getRunningBook",JSON.stringify(webData));
 }
-function getBookDetails(book_id) {
-     var mstTableData = {"book_id":book_id};
-	 var mstTableDataUrl='${pageContext.request.contextPath}/ajax/getWebServicesData?serviceName=getBookDetailsByBookId&serviceType=MASTER';
-	 var mstTableDataMap=genericAjaxCallForJsonWithLoader(mstTableDataUrl,JSON.stringify(mstTableData),"loader");
-	 var mstTableDataStatus=mstTableDataMap.get("serviceStatus");
-	 var mstTableDataCnt=mstTableDataMap.get("serviceResponse"); 
-     if (mstTableDataStatus === 1 &&  mstTableDataCnt.length > 0) {
-        $("#emi_start_date").val(mstTableDataCnt[0].emi_start_date);
-        $("#capital_amount").val(mstTableDataCnt[0].capital_amount);
-        $("#interest_per").val(mstTableDataCnt[0].interest_per);
-        $("#interest_amount").val(mstTableDataCnt[0].interest_amount);
-        $("#installment_amt").val(mstTableDataCnt[0].installment_amount);
-		InstallmentAmount=mstTableDataCnt[0].installment_amount;
-        $("#no_of_installment").val(mstTableDataCnt[0].no_of_installment);
-		$("#no_of_paid_installment").val(mstTableDataCnt[0].no_of_paid_inst);
-		$("#paid_amount").val(mstTableDataCnt[0].payment_amount);
-		$("#remaining_amount").val(Number(mstTableDataCnt[0].capital_amount)-Number(mstTableDataCnt[0].payment_amount));
-     }
-}
 function getMstCreateUserData(){
 	$('#dataTableId').DataTable().destroy();
 	$("#dataTableId > tbody").empty();
 	 var mstTableData = {};
-	 var mstTableDataUrl='${pageContext.request.contextPath}/ajax/getWebServicesData?serviceName=getAllBookEntry&serviceType=MASTER';
+	 var mstTableDataUrl='${pageContext.request.contextPath}/ajax/getWebServicesData?serviceName=getAddInstallment&serviceType=MASTER';
 	 var mstTableDataMap=genericAjaxCallForJsonWithLoader(mstTableDataUrl,JSON.stringify(mstTableData),"loader");
 	 var mstTableDataStatus=mstTableDataMap.get("serviceStatus");
 	 var mstTableDataCnt=mstTableDataMap.get("serviceResponse"); 
@@ -272,42 +249,17 @@ function getMstCreateUserData(){
 		$.each(mstTableDataCnt,function(index)
 		{	
 			var bodyRow=$("<tr/>");
-			
-			if(Number(rowCnt)== 0 && Number(rowNum) <= rowCnt ){
-				indexNo=Number(indexNo)+1;
-				bodyRow.append( $("<td/>").attr("rowspan",mstTableDataCnt[index].book_cnt).addClass("text-center").append(indexNo) );
-				bodyRow.append( $("<td/>").attr("rowspan",mstTableDataCnt[index].book_cnt).addClass("text-center").append(mstTableDataCnt[index].user_name));
-				rowNum=Number(rowNum)+1;
-				rowCnt=	mstTableDataCnt[index].book_cnt;
-			}else{
-				rowCnt=0;
-				rowNum=Number(rowNum)+1;
-			}
-			
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].book_name));	
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].emi_start_date));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].capital_amount));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].interest_per));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].interest_amount));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].installment_amount));
-			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].no_of_installment));
-			
-			var button=$("<button/>").addClass("btn btn-success label label-edit m-1 defaultPrivilege editButtonClassDesign removeExcelColumn").attr("type", "button").attr("onclick","BindDataForUpdat('"+mstTableDataCnt[index].user_id+"')");
+			bodyRow.append( $("<td/>").addClass("text-center").append(index+1));	
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].user_name));	
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].book_name));
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].payment_amount));
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].payment_date));
+			bodyRow.append( $("<td/>").addClass("text-center").append(mstTableDataCnt[index].paid_installment));
+			var button=$("<button/>").addClass("btn btn-danger btn-sm label label-edit m-1 defaultPrivilege editButtonClassDesign removeExcelColumn").attr("type", "button").attr("onclick","deleteInstallment('"+mstTableDataCnt[index].emi_entry_id+"')");
 			var bi=$("<i/>").addClass("fas fa-pencil-alt mr-1");			
-			
-			if(mstTableDataCnt[index].status == "1")
-			{
-				var button1=$("<button/>").addClass("btn btn-danger label label-deactivate m-1 deactivatePrivilege deactivateButtonClassDesign").attr("type","button").attr("onclick","ActivateDeActivateMstUser('"+mstTableDataCnt[index].user_id+"','0')");
-				button1.append("DEACTIVATE");
-			}
-			else
-			{
-				var button1=$("<button/>").addClass("btn btn-success label label-activate m-1 activatePrivilege activateButtonClassDesign").attr("type","button").attr("onclick","ActivateDeActivateMstUser('"+mstTableDataCnt[index].user_id+"','1')");
-				button1.append("ACTIVATE");			
-			}
-			
-			button.append("EDIT");			
-			bodyRow.append($("<td/>").addClass("removeExcelColumn").append(button).append("&nbsp;").append(button1));
+						
+			button.append("Delete");			
+			bodyRow.append($("<td/>").addClass("removeExcelColumn").append(button));
 			
 			$("#dataTableId > tbody").append(bodyRow)
 		});
@@ -348,93 +300,48 @@ function saveMstCreateUser()
  						})
  			}
 }
-
-function BindDataForUpdat(user_id){
-	var webData = {'user_id' : user_id};
-	var webDataUrl = '${pageContext.request.contextPath}/ajax/getUserManagementWebService?serviceName=getBeneficiaryTypeMasterDataById&serviceType=MASTER';
-	var webDataMap = genericAjaxCallForJsonWithLoader(webDataUrl, JSON.stringify(webData), "loader");
-	var webDataStatus = webDataMap.get("serviceStatus");
-	var webDataCnt = webDataMap.get("serviceResponse"); 
-	if (webDataStatus === 1 && webDataCnt.length > 0) {
-		$.each(webDataCnt, function(index) {
-			$("#saveBtn").addClass("hide");
-			$("#updateBtn").removeClass("hide");
-
-			$("#full_name").val(webDataCnt[index].full_name);	
-			$("#mobile_no").val(webDataCnt[index].mobile_no);
-			$("#address").val(webDataCnt[index].address);
-			$("#city").val(webDataCnt[index].city);
-			$("#pincode").val(webDataCnt[index].pincode);
-			$("#capital").val(webDataCnt[index].capital);
-			$("#percentage").val(webDataCnt[index].percentage);
-			$("#check").val(webDataCnt[index].check);
-			$("#adharcard").val(webDataCnt[index].adharcard);
-
-			$("#user_id").val(webDataCnt[index].user_id);
-		});
-	}
+function getBookDetails(book_id) {
+     var mstTableData = {"book_id":book_id};
+	 var mstTableDataUrl='${pageContext.request.contextPath}/ajax/getWebServicesData?serviceName=getBookDetailsByBookId&serviceType=MASTER';
+	 var mstTableDataMap=genericAjaxCallForJsonWithLoader(mstTableDataUrl,JSON.stringify(mstTableData),"loader");
+	 var mstTableDataStatus=mstTableDataMap.get("serviceStatus");
+	 var mstTableDataCnt=mstTableDataMap.get("serviceResponse"); 
+     if (mstTableDataStatus === 1 &&  mstTableDataCnt.length > 0) {
+        $("#emi_start_date").val(mstTableDataCnt[0].emi_start_date);
+        $("#capital_amount").val(mstTableDataCnt[0].capital_amount);
+        $("#interest_per").val(mstTableDataCnt[0].interest_per);
+        $("#interest_amount").val(mstTableDataCnt[0].interest_amount);
+        $("#installment_amt").val(mstTableDataCnt[0].installment_amount);
+		InstallmentAmount=mstTableDataCnt[0].installment_amount;
+        $("#no_of_installment").val(mstTableDataCnt[0].no_of_installment);
+		$("#no_of_paid_installment").val(mstTableDataCnt[0].no_of_paid_inst);
+		$("#paid_amount").val(mstTableDataCnt[0].payment_amount);
+		$("#remaining_amount").val(Number(mstTableDataCnt[0].capital_amount)-Number(mstTableDataCnt[0].payment_amount));
+     }
 }
-
-function updateMstUser(){
-	var user_id=$("#user_id").val();
-	var flag=true;
-	flag=formValidate("validateDivId");
-	if(flag)
-	{
-	    bootbox.confirm({
-	    title:'<%=Constants.PROJECT_TITLE%>',
-		message: "Are you sure want to update data?",
-		buttons: confirmCancelButton,
-	    callback: function(result)
-	    { 
-	    	if(result)
-	    	    {
-					var serviceURL='${pageContext.request.contextPath}/gpProfileCrud/updateMstUser/'+crtUser;
-  					var serviceData =$("#CreateUserFormId").serialize();
-			        var map=saveFormApplication(serviceURL,serviceData,'loader','CreateUserFormId');
-			        var serviceStatus=map.get("serviceStatus");
-			        var res=map.get("serviceResponse");
-			        if(serviceStatus === 1)
-		        	{			 
-// 			        	$("#loaders").css("display","none");
-			        	getMstCreateUserData();
-			        	resetData();
-			        	$("#updateBtn").addClass("hide");
-						$("#saveBtn").removeClass("hide");
-		        	}		
-				}
-		}
-	    })
-	}
-}
-
-function ActivateDeActivateMstUser(user_id , status)
+function deleteInstallment(emi_entry_id)
 {
-	$('#user_id').val(user_id);
-	$('#status').val(status);
-	var st='';
-	if(status=='0'){
-		st='deactivate';
-	}else{
-		st='activate';
-	}
+	$("#emi_entry_id").val(emi_entry_id);
+	$("#user_id").val("0");
+	crtUser='${sessionScope.user_id}';
 	bootbox.confirm({
 		title : '<%=Constants.PROJECT_TITLE%>',
-		message: "Are you sure want to "+st+" this Beneficiary Type ?",
+		message: "Are you sure want to delete Installment ?",
 		buttons: confirmCancelButton,
 	    callback: function(result)
 	    { 
 	    	if(result)
 	    	{
-				 var serviceURL='${pageContext.request.contextPath}/gpProfileCrud/ActivateDeActivateMstUser/'+crtUser;
+				 var serviceURL='${pageContext.request.contextPath}/mainAjax/deleteInstallment/'+crtUser;
 			  	 var serviceData=$("#CreateUserFormId").serialize();
 			  	 var map=saveFormApplication(serviceURL,serviceData,"loader","CreateUserFormId");
 			  	 var serviceStatus=map.get("serviceStatus");
 			  	 var res=map.get("serviceResponse");
+				   $("#emi_entry_id").val("0");
 			  	 if(serviceStatus == 1)
 			   	 {
 			  		getMstCreateUserData();
-			  		resetData();
+			  		
 			   	 }			  
 	    	}
 	    }

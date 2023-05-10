@@ -11,15 +11,24 @@
     
     <div id="div_menu_id">
         <ul class="sidebar-menu" data-widget="tree">
-        	<li class="treeview">
-         		 <a href="#" onclick="loadCreateUser()"><i class="far fa-circle ion"></i>Create User</a>
-         		
+        	
+         	<li class="treeview">
+         		 <a href="#"><i class="fa fa-th"></i><span>Users</span><span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span></a>
+		         <ul class="treeview-menu">
+		         	<li> <a href="#" onclick="loadCreateUser()"><i class="far fa-circle ion"></i>Register Users</a></li>
+		         </ul>	
          	</li>
          	<li class="treeview">
          		 <a href="#"><i class="fa fa-th"></i><span>EMI Transaction</span><span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span></a>
 		         <ul class="treeview-menu">
 		         	<li> <a href="#" onclick="loadAddBookEntry()"><i class="far fa-circle ion"></i>Add Book Entry</a></li>
          		 	<li><a href="#" onclick="loadAddEMIInstallment()"><i class="far fa-circle ion"></i>Add EMI Installments</a></li>
+		         </ul>	
+         	</li>
+         	<li class="treeview">
+         		 <a href="#"><i class="fa fa-th"></i><span>My Office</span><span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span></a>
+		         <ul class="treeview-menu">
+		         	<li> <a href="#" onclick="loadMyOffice()"><i class="far fa-circle ion"></i>My Office</a></li>
 		         </ul>	
          	</li>
     	</ul>    

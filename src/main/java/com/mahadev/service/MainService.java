@@ -16,4 +16,7 @@ public interface MainService {
 	WebResponseJsonBo ActivateDeActivateMstUser(Map<String, Object> map);
 	WebResponseJsonBo saveAddBookEntry(Map<String, Object> map)throws IOException;
 	WebResponseJsonBo saveAddInstallment(Map<String, Object> map)throws IOException;
+	
+	WebResponseJsonBo deleteInstallment(Map<String, Object> map)throws IOException;
+	WebResponseJsonBo saveOfficeTransaction(Map<String, Object> map)throws IOException;
 }

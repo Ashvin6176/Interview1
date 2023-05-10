@@ -19,6 +19,7 @@ public class AllMainRepository {
 	@Autowired
 	private TrnEmiEntryRepo trnEmiEntryRepo;
 	@Autowired DtlEmiEntryRepo dtlEmiEntryRepo;
+	@Autowired MstOfficeRepo mstOfficeRepo;
 	
 	public MstUserBo saveMstCreateUser(MstUserBo bo) {
 		return mstUserRepo.save(bo);
@@ -42,5 +43,8 @@ public class AllMainRepository {
 	}
 	public DtlEmiEntryRepo getDtlEmiEntryRepo() {
 		 return dtlEmiEntryRepo;
+	}
+	public MstOfficeRepo getMstOfficeRepo() {
+		 return mstOfficeRepo;
 	}
 }

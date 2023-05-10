@@ -33,6 +33,7 @@ import com.mahadev.common.entityModel.WebResponseJsonBo;
 import com.mahadev.constant.Constants;
 import com.mahadev.constant.UrlConstatnt;
 import com.mahadev.entityModel.MstBookEntryBo;
+import com.mahadev.entityModel.MstOfficeBo;
 import com.mahadev.entityModel.MstUserBo;
 import com.mahadev.entityModel.TrnEmiEntryBo;
 import com.mahadev.service.MainService;
@@ -120,6 +121,30 @@ public class MainController {
 		bo.setStatus(Constants.Active);
 		map.put("webBo", bo);
 		WebResponseJsonBo obj = mainService.saveAddInstallment(map);
+		return ResponseEntity.ok(obj);
+	}
+	@PostMapping(value = UrlConstatnt.deleteInstallment)
+	public ResponseEntity<WebResponseJsonBo> deleteInstallment(@RequestBody @ModelAttribute TrnEmiEntryBo bo,@PathVariable("crtUser") String crtUser, @Context HttpServletRequest req,
+			HttpServletResponse res) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		bo.setCrtDate(new Date());
+		bo.setCrtIp(CommonUtility.getIp(req));
+		bo.setCrtUser(crtUser);
+		bo.setStatus(Constants.Active);
+		map.put("webBo", bo);
+		WebResponseJsonBo obj = mainService.deleteInstallment(map);
+		return ResponseEntity.ok(obj);
+	}		
+	@PostMapping(value = UrlConstatnt.saveOfficeTransaction)
+	public ResponseEntity<WebResponseJsonBo> saveOfficeTransaction(@RequestBody @ModelAttribute MstOfficeBo bo,@PathVariable("crtUser") String crtUser, @Context HttpServletRequest req,
+			HttpServletResponse res) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		bo.setCrtDate(new Date());
+		bo.setCrtIp(CommonUtility.getIp(req));
+		bo.setCrtUser(crtUser);
+		bo.setStatus(Constants.Active);
+		map.put("webBo", bo);
+		WebResponseJsonBo obj = mainService.saveOfficeTransaction(map);
 		return ResponseEntity.ok(obj);
 	}
 }

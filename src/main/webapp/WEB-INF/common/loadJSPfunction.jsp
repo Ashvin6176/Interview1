@@ -20,4 +20,9 @@ function loadAddEMIInstallment()
 	document.menuFrom.action="${pageContext.request.contextPath}/main/loadAddEMIInstallment";
 	document.menuFrom.submit();
 }
+function loadMyOffice()
+{
+	document.menuFrom.action="${pageContext.request.contextPath}/main/loadMyOffice";
+	document.menuFrom.submit();
+}
 </script>

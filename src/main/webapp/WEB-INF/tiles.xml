@@ -142,4 +142,8 @@
 		<put-attribute name="title" value="Add Book Entry" />
 		<put-attribute name="body" value="/WEB-INF/pages/AddEMIInstallment.jsp"/>
 	</definition>
+	<definition name="loadMyOffice" extends="base.definition">
+		<put-attribute name="title" value="Add Book Entry" />
+		<put-attribute name="body" value="/WEB-INF/pages/loadMyOffice.jsp"/>
+	</definition>
 </tiles-definitions>
