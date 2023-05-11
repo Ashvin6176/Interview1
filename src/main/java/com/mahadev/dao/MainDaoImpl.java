@@ -26,21 +26,22 @@ import com.utils.CommonUtility;
 public class MainDaoImpl implements MainDao{
 	@Autowired
     AllMainRepository allMainRepository;
-@Override
-public Map<String, Object> ActivateDeActivateMstUser(Map<String, Object> map) {
-	Map<String, Object> returnMap = new HashMap<>();
-	MstUserBo bo = (MstUserBo) map.get("webBo");
-	int count = allMainRepository.ActivateDeActivateMstUser(bo);
-	if(count <= 0) {
-		returnMap.put("returnMsg", Constants.MSG_ERROR);
-		return returnMap;			
+	@Override
+	public Map<String, Object> ActivateDeActivateMstUser(Map<String, Object> map) {
+		Map<String, Object> returnMap = new HashMap<>();
+		MstUserBo bo = (MstUserBo) map.get("webBo");
+		int count = allMainRepository.ActivateDeActivateMstUser(bo);
+		if(count <= 0) {
+			returnMap.put("returnMsg", Constants.MSG_ERROR);
+			return returnMap;			
+		}
+		else {
+			returnMap.put("returnMsg", Constants.MSG_SUCCESS);
+			returnMap.put("bo", bo);
+			return returnMap;
+		}
 	}
-	else {
-		returnMap.put("returnMsg", Constants.MSG_SUCCESS);
-		returnMap.put("bo", bo);
-		return returnMap;
-	}
-}
+
 
 @Override
 public Map<String, Object> saveMstCreateUser(Map<String, Object> map) throws IOException {
@@ -65,9 +66,32 @@ public Map<String, Object> saveMstCreateUser(Map<String, Object> map) throws IOE
 }
 
 @Override
-public Map<String, Object> updateMstUser(Map<String, Object> map) {
+public Map<String, Object> updateMstUser(Map<String, Object> map) throws Exception {
 	Map<String,Object> returnMap=new HashMap<>();
 	MstUserBo bo=(MstUserBo)map.get("webBo");
+	if(bo.getCheck_temp()!=null && bo.getCheck_temp().getOriginalFilename()!=null && !bo.getCheck_temp().getOriginalFilename().equals("")) {
+		InputStream is=bo.getCheck_temp().getInputStream();
+		byte[] check_bytes=is.readAllBytes();
+		bo.setCheck_img(check_bytes);
+		bo.setCheck_exe(CommonUtility.getExtension(bo.getCheck_temp().getOriginalFilename()));
+	}
+	else {
+		MstUserBo oldData=allMainRepository.getOldData(bo.getUser_id());
+		bo.setCheck_img(oldData.getCheck_img());
+		bo.setCheck_exe(oldData.getCheck_exe());
+		
+		}
+	if(bo.getAdhar()!=null && bo.getAdhar().getOriginalFilename()!=null && !bo.getAdhar().getOriginalFilename().equals("")) {
+		InputStream is=bo.getAdhar().getInputStream();
+		byte[] adhar_bytes=is.readAllBytes();
+		bo.setAdharcard(adhar_bytes);
+		bo.setAdhar_exe(CommonUtility.getExtension(bo.getAdhar().getOriginalFilename()));
+	}
+	else {
+	   MstUserBo oldData = allMainRepository.getOldData(bo.getUser_id());
+	   bo.setAdharcard(oldData.getAdharcard());
+	   bo.setAdhar_exe(oldData.getAdhar_exe());
+	}
 	int count = allMainRepository.updateMstUser(bo);
 	if(count <= 0) {
 		returnMap.put("returnMsg", Constants.MSG_ERROR);
@@ -126,6 +150,22 @@ public Map<String, Object> saveAddBookEntry(Map<String, Object> map) throws IOEx
 	returnMap.put("bo", bo);		
 	return returnMap;
 }
+@Override
+public Map<String, Object> ActivatedeActivateMstAddBook(Map<String, Object> map) {
+	Map<String, Object> returnMap = new HashMap<>();
+	MstBookEntryBo bo = (MstBookEntryBo) map.get("webBo");
+	int count = allMainRepository.ActivatedeActivateMstAddBook(bo);
+	if(count <= 0) {
+		returnMap.put("returnMsg", Constants.MSG_ERROR);
+		return returnMap;			
+	}
+	else {
+		returnMap.put("returnMsg", Constants.MSG_SUCCESS);
+		returnMap.put("bo", bo);
+		return returnMap;
+	}
+}
+
 @Override
 @Transactional(rollbackOn = Exception.class)
 public Map<String, Object> saveAddInstallment(Map<String, Object> map) throws IOException {

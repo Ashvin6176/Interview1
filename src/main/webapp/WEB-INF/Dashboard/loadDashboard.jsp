@@ -201,14 +201,14 @@ function getCardLoaderElement(cardIndex) {
 	function getCardHeaderElement(cardIndex, cardObj) {
 		let img_path="../resources/images/dashboard/"+cardObj.card_img;
 		return $('<div/>').addClass('row')
-					.append(
-							$('<div/>').addClass('col-3 card-icon')
-								.append($('<img/>').attr({"src":img_path, "width":"60"}))
-						)
+					
 					.append(
 							$('<div/>').addClass('col-9 card-title').attr({"id":"card_title_id"+cardIndex})
 							.append($('<h5/>').text(cardObj.heading))
-					);
+					).append(
+							$('<div/>').addClass('col-3 card-icon')
+								.append($('<img/>').attr({"src":img_path, "width":"60"}))
+						);
 	}
 	
 	function getCardFooterElement(cardIndex, cardObj) {

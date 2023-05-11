@@ -9,12 +9,13 @@ import com.mahadev.common.entityModel.WebResponseJsonBo;
 
 @Component
 public interface MainService {
-	WebResponseJsonBo updateMstUser(Map<String, Object> map);
+	WebResponseJsonBo updateMstUser(Map<String, Object> map) throws Exception;
 
 	WebResponseJsonBo saveMstCreateUser(Map<String, Object> map)throws IOException;
 
 	WebResponseJsonBo ActivateDeActivateMstUser(Map<String, Object> map);
 	WebResponseJsonBo saveAddBookEntry(Map<String, Object> map)throws IOException;
+	WebResponseJsonBo ActivatedeActivateMstAddBook(Map<String, Object> map);
 	WebResponseJsonBo saveAddInstallment(Map<String, Object> map)throws IOException;
 	
 	WebResponseJsonBo deleteInstallment(Map<String, Object> map)throws IOException;

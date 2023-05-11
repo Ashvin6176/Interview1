@@ -75,7 +75,7 @@ public class MainController {
 		return ResponseEntity.ok(obj);
 	}
 	@PostMapping(value = UrlConstatnt.updateMstUser)
-	public ResponseEntity<WebResponseJsonBo> updateMstUser(@PathVariable("crtUser") String crtUser,@RequestBody @ModelAttribute MstUserBo bo, HttpServletRequest req,
+	public ResponseEntity<WebResponseJsonBo> updateMstUser(@PathVariable("crtUser") String crtUser,@RequestBody @Valid @ModelAttribute MstUserBo bo, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		bo.setLstUpdDate(new Date());
@@ -88,7 +88,7 @@ public class MainController {
 	}
 	
 	@PostMapping(value = UrlConstatnt.ActivateDeActivateMstUser)
-	public ResponseEntity<WebResponseJsonBo> ActivateDeActivateMstUser(@PathVariable("crtUser") String crtUser,@ModelAttribute MstUserBo bo, HttpServletRequest req,
+	public ResponseEntity<WebResponseJsonBo> ActivateDeActivateMstUser(@PathVariable("crtUser") String crtUser,@RequestBody @ModelAttribute MstUserBo bo, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		bo.setLstUpdDate(new Date());
@@ -109,6 +109,17 @@ public class MainController {
 		bo.setStatus(Constants.Active);
 		map.put("webBo", bo);
 		WebResponseJsonBo obj = mainService.saveAddBookEntry(map);
+		return ResponseEntity.ok(obj);
+	}
+	@PostMapping(value = UrlConstatnt.ActivatedeActivateMstAddBook)
+	public ResponseEntity<WebResponseJsonBo> ActivatedeActivateMstAddBook(@PathVariable("crtUser") String crtUser,@ModelAttribute MstBookEntryBo bo, HttpServletRequest req,
+			HttpServletResponse res) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		bo.setLstUpdDate(new Date());
+		bo.setLstUpdIp(CommonUtility.getIp(req));
+		bo.setLstUpdUser(crtUser);
+		map.put("webBo", bo);
+		WebResponseJsonBo obj = mainService.ActivatedeActivateMstAddBook(map);
 		return ResponseEntity.ok(obj);
 	}
 	@PostMapping(value = UrlConstatnt.saveAddInstallment)

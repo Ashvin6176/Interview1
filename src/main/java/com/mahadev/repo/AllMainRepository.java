@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mahadev.entityModel.MstBookEntryBo;
 import com.mahadev.entityModel.MstUserBo;
 import com.mahadev.exception.ResourceNotFoundException;
 
@@ -26,13 +27,19 @@ public class AllMainRepository {
 		
 	}
 
+   public MstUserBo getOldData(int user_id) {
+		
+		return mstUserRepo.getOne(user_id);
+		
+	}
+
 	public int ActivateDeActivateMstUser(MstUserBo bo) {
 		
-		return mstUserRepo.deActivateMstGpGalleryImage(bo.getLstUpdDate(),bo.getLstUpdIp(),bo.getLstUpdUser(),bo.getStatus(),bo.getUser_id());
+		return mstUserRepo.ActivateDeActivateMstUser(bo.getLstUpdDate(),bo.getLstUpdIp(),bo.getLstUpdUser(),bo.getStatus(),bo.getUser_id());
 	}
 
 	public int updateMstUser(MstUserBo bo) {
-		 return mstUserRepo.updateMstGpImageGallery(bo.getFull_name(),bo.getMobile_no(),bo.getAddress(),bo.getCity(),bo.getPincode(),bo.getCapital(),bo.getPercentage(),bo.getAdharcard(),bo.getCheck_img(),bo.getLstUpdDate(),bo.getLstUpdIp(),bo.getLstUpdUser(),bo.getUser_id());
+		 return mstUserRepo.updateMstUser(bo.getFull_name(),bo.getMobile_no(),bo.getAddress(),bo.getCity(),bo.getPincode(),bo.getAdharcard(),bo.getCheck_img(),bo.getLstUpdDate(),bo.getLstUpdIp(),bo.getLstUpdUser(),bo.getUser_id());
 	}
 	
 	public MstBookEntryRepo getMstBookEntryRepo() {
@@ -46,5 +53,8 @@ public class AllMainRepository {
 	}
 	public MstOfficeRepo getMstOfficeRepo() {
 		 return mstOfficeRepo;
+	}
+	public int ActivatedeActivateMstAddBook(MstBookEntryBo bo) {
+		return mstBookEntryRepo.ActivatedeActivateMstAddBook(bo.getLstUpdDate(),bo.getLstUpdIp(),bo.getLstUpdUser(),bo.getStatus(),bo.getBook_id());
 	}
 }

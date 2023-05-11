@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import com.mahadev.common.entityModel.WebResponseJsonBo;
 import com.mahadev.constant.Constants;
 import com.mahadev.dao.MainDao;
+import com.mahadev.entityModel.MstBookEntryBo;
 import com.mahadev.entityModel.MstUserBo;
 import com.mahadev.repo.AllMainRepository;
 import com.mahadev.service.MainService;
@@ -42,10 +43,10 @@ public class MainServiceImpl implements MainService {
 	private MainDao mainDao;
 
 	@Override
-	public WebResponseJsonBo updateMstUser(Map<String, Object> map) {
+	public WebResponseJsonBo updateMstUser(Map<String, Object> map) throws Exception {
 		WebResponseJsonBo obj=new WebResponseJsonBo();
 		MstUserBo bo=(MstUserBo) map.get("webBo");
-		if(bo.getUser_id() > 0) {
+		if(bo.getUser_id() < 0) {
 			obj.setReturn_message("Data is not found..!");
 			obj.setStatus(Constants.ERROR_CODE);
 			obj.setValidated(false);
@@ -68,7 +69,6 @@ public class MainServiceImpl implements MainService {
 			return obj;
 		}
 	}
-
 	@Override
 	public WebResponseJsonBo saveMstCreateUser(Map<String, Object> map) throws IOException {
 		WebResponseJsonBo obj=new WebResponseJsonBo();
@@ -95,7 +95,7 @@ public class MainServiceImpl implements MainService {
 	public WebResponseJsonBo ActivateDeActivateMstUser(Map<String, Object> map) {
 		WebResponseJsonBo obj = new WebResponseJsonBo();
 		MstUserBo bo=(MstUserBo) map.get("webBo");
-		if(bo.getUser_id() > 0) {
+		if(bo.getUser_id() < 0) {
 			obj.setReturn_message("Data is not found..!");
 			obj.setStatus(Constants.ERROR_CODE);
 			obj.setValidated(false);
@@ -122,7 +122,6 @@ public class MainServiceImpl implements MainService {
 			return obj;
 		}
 	}
-	
 	@Override
 	public WebResponseJsonBo saveAddBookEntry(Map<String, Object> map) throws IOException {
 		WebResponseJsonBo obj=new WebResponseJsonBo();
@@ -134,6 +133,34 @@ public class MainServiceImpl implements MainService {
 			obj.setStatus(Constants.SUCCESS_CODE);
 			obj.setValidated(true);
 			return obj;
+		}
+		else {
+			obj.setReturn_message("Something went wrong..!");
+			obj.setStatus(Constants.ERROR_CODE);
+			obj.setValidated(false);
+			return obj;
+		}
+	}
+	@Override
+	public WebResponseJsonBo ActivatedeActivateMstAddBook(Map<String, Object> map) {
+		WebResponseJsonBo obj = new WebResponseJsonBo();
+		MstBookEntryBo bo=(MstBookEntryBo) map.get("webBo");
+		if(bo.getBook_id() < 0) {
+			obj.setReturn_message("Data is not found..!");
+			obj.setStatus(Constants.ERROR_CODE);
+			obj.setValidated(false);
+			return obj;	
+		}
+		Map<String, Object> returnMap= mainDao.ActivatedeActivateMstAddBook(map);
+		String msg = (String) returnMap.get("returnMsg");
+		
+		if(!StringUtils.isBlank(msg) && msg.equals(Constants.MSG_SUCCESS)) {
+			if(bo.getStatus().equals("0")) {
+				obj.setMessage_description("Book Deleted sucessfully.");
+			}
+			obj.setStatus(Constants.SUCCESS_CODE);
+			obj.setValidated(true);
+			return obj;	
 		}
 		else {
 			obj.setReturn_message("Something went wrong..!");
