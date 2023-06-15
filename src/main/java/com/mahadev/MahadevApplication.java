@@ -37,7 +37,7 @@ public class MahadevApplication extends SpringBootServletInitializer {
 
 	private static void openHomePage() throws IOException {
 		Runtime rt = Runtime.getRuntime();
-		rt.exec("rundll32 url.dll,FileProtocolHandler " + "http://localhost:9098/MAHADEV/login/loginPage");
+		rt.exec("rundll32 url.dll,FileProtocolHandler " + "http://localhost:9098/MAHADEV/");
 	}
 	@Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {

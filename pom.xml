@@ -4,7 +4,7 @@
 	<artifactId>mahadev</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>PROJECT_SETUP</name>
+	<name>PracticalTask</name>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -12,14 +12,19 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<start-class>com.mahadev.MahadevApplication</start-class>
 	</properties>
 
-
+    
 	<dependencies>
+	     <dependency>
+			 <groupId>org.tuckey</groupId>
+			 <artifactId>urlrewritefilter</artifactId>
+			 <version>4.0.3</version>
+		</dependency>  
 		<!-- For Spring boot Starter -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -86,7 +91,7 @@
 		</dependency>
 		<!-- spring boot tiles dependancy -->
 		<!--Start :: For JSON Include dependancy -->
-		<dependency>
+	<!-- 	<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 		</dependency>
@@ -97,19 +102,27 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-		</dependency>
+		</dependency>-->
 		<!--End :: For JSON Include dependancy -->
 		<!-- Types that extend and augment the Java Collections Framework. -->
-		<dependency>
+	<!-- 	<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-		</dependency>
+		</dependency> -->
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-		<dependency>
+		<!--<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.32</version>
-		</dependency>
+	<dependency> -->
+		
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.47</version>
+</dependency>
+
 
 		<!-- For console log -->
 		<!-- Add Log4j2 Dependency -->
@@ -233,7 +246,7 @@
 			<artifactId>javax.servlet-api</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.bundles/jaxrs-ri -->
-		<dependency>
+	<!-- 	<dependency>
 			<groupId>org.glassfish.jersey.bundles</groupId>
 			<artifactId>jaxrs-ri</artifactId>
 
@@ -243,7 +256,7 @@
 			<artifactId>jasperreports</artifactId>
 			<version>6.10.0</version>
 		</dependency>
-
+-->
 		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 
 
@@ -283,25 +296,33 @@
 			<artifactId>pdfbox-debugger</artifactId>
 			<version>2.0.24</version>
 		</dependency>
-		<dependency>
+	<!-- 	<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-		</dependency>
+		</dependency>  -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>4.1.2</version>
 		</dependency>
-		<dependency>
+	<!-- 	<dependency>
 			<groupId>com.github.ozlerhakan</groupId>
 			<artifactId>poiji</artifactId>
 			<version>4.1.1</version>
-		</dependency>
+		</dependency>  -->
+		<!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
+<dependency>
+    <groupId>javax.ws.rs</groupId>
+    <artifactId>javax.ws.rs-api</artifactId>
+    <version>2.0-m10</version>
+</dependency>
+
 		<dependency>
-    <groupId>com.oracle.database.jdbc</groupId>
+		
+   <groupId>com.oracle.database.jdbc</groupId>
     <artifactId>ojdbc8</artifactId>
     <version>12.2.0.1</version>
-</dependency>
+</dependency> 
 	</dependencies>
 	<build>
 		<plugins>

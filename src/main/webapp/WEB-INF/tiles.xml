@@ -146,4 +146,36 @@
 		<put-attribute name="title" value="Add Book Entry" />
 		<put-attribute name="body" value="/WEB-INF/pages/loadMyOffice.jsp"/>
 	</definition>
+	<definition name="loadUserUchakEntry" extends="base.definition">
+		<put-attribute name="title" value="User Uchak Entry" />
+		<put-attribute name="body" value="/WEB-INF/pages/loadUserUchakEntry.jsp"/>
+	</definition>
+	<definition name="loadAddUchakAmountEntry" extends="base.definition">
+		<put-attribute name="title" value="User Uchak Amount Entry" />
+		<put-attribute name="body" value="/WEB-INF/pages/loadAddUchakAmountEntry.jsp"/>
+	</definition>
+	<definition name="loadMyOfficeReport" extends="base.definition">
+		<put-attribute name="title" value="My Office Report" />
+		<put-attribute name="body" value="/WEB-INF/pages/loadMyOfficeReport.jsp"/>
+	</definition>
+	<definition name="loadMyOfficeBalReport" extends="base.definition">
+		<put-attribute name="title" value="My Office Balance Report" />
+		<put-attribute name="body" value="/WEB-INF/pages/loadMyOfficeBalReport.jsp"/>
+	</definition>
+	<definition name="loadUserBookReport" extends="base.definition">
+		<put-attribute name="title" value="My Office Report" />
+		<put-attribute name="body" value="/WEB-INF/pages/loadUserBookReport.jsp"/>
+	</definition>
+	<definition name="loadUserUchakReport" extends="base.definition">
+		<put-attribute name="title" value="My Office Balance Report" />
+		<put-attribute name="body" value="/WEB-INF/pages/loadUserUchakReport.jsp"/>
+	</definition>
+	<definition name="loadEmiReminder" extends="base.definition">
+		<put-attribute name="title" value="EMI Installment Reminder" />
+		<put-attribute name="body" value="/WEB-INF/pages/loadEmiReminder.jsp"/>
+	</definition>
+	<definition name="loadInterestReminder" extends="base.definition">
+		<put-attribute name="title" value="Interest Reminder" />
+		<put-attribute name="body" value="/WEB-INF/pages/loadInterestReminder.jsp"/>
+	</definition>
 </tiles-definitions>

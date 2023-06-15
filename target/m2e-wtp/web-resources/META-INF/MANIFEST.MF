@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Build-Jdk-Spec: 16
-Implementation-Title: PROJECT_SETUP
+Implementation-Title: PracticalTask
 Implementation-Version: 0.0.1-SNAPSHOT
 Main-Class: com.mahadev.MahadevApplication
 Created-By: Maven Integration for Eclipse
